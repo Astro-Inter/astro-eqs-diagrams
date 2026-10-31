@@ -1,118 +1,44 @@
 @startuml fluxo_funcionario
-title Fluxo do funcionário
-
-' Jira: https://luizacursino.atlassian.net/browse/SCRUM-558
-' Fonte: Entrega Astro/Diagramas/Fluxo Funcionario - Diagrama de  atividades.jpg
-' no arquivo entrega-astro.zip. Substitui a versão anterior do draw.io.
-skinparam shadowing false
-skinparam defaultFontName SansSerif
-skinparam activity {
-  BackgroundColor White
-  BorderColor #333333
-  StartColor #333333
-  EndColor #333333
-  BarColor #333333
-}
-
-partition "Autenticação" {
-  (*) --> if "Login" then
-    --> "Login" as login
-  else
-    -->[Não] "Cadastrar" as cadastrar
-    --> "Salvar no sistema" as salvar
-  endif
-
-  login --> "Verificando no Sistema" as verificar
-  salvar --> verificar
-  verificar --> if "Dados Válidos?" then
-    -->[Sim] "Home" as home
-  else
-    -->[Não] "Volta para Login" as voltar_login
-  endif
-}
-
-partition "Calendário" {
-  home --> "Funcionário vai para a tela\nde calendário" as abrir_calendario
-  --> ===calendario_inicio===
-  --> "Tela Calendário" as tela_calendario
-  --> ===calendario_fim===
-
-  ===calendario_inicio=== --> "API do Calendário\npara carregar os eventos" as api_calendario
-  --> ===calendario_fim===
-  --> "Outras ações" as outras_acoes
-
-  outras_acoes --> (*)
-  outras_acoes --> "Voltar para Home" as home_calendario
-  outras_acoes --> "Clicou para saber mais sobre\num evento específico" as abrir_evento
-  --> ===evento_inicio===
-  --> "Informações do evento" as informacoes_evento
-  --> ===evento_fim===
-
-  ===evento_inicio=== --> "API do Calendário\npara carregar os eventos" as api_evento
-  --> ===evento_fim===
-  --> "Voltar para Calendário" as voltar_calendario
-}
-
-partition "Histórico de treinamentos" {
-  home --> "Ver Histórico de Treinamentos" as abrir_historico
-  --> ===historico_inicio===
-  --> "API do Histórico\npara puxar os certificados\ne cursos concluídos" as api_historico
-  --> ===historico_fim===
-  --> "Outras ações" as acoes_historico
-  --> (*)
-  acoes_historico --> "Voltar para Home" as home_historico
-}
-
-partition "NRs" {
-  home --> "Ver a tela das NRs\nque tem que cumprir" as abrir_nrs
-  --> ===nrs_inicio===
-  --> "Tela das NRs" as tela_nrs
-  --> ===nrs_fim===
-
-  ===nrs_inicio=== --> "API do Histórico\npara puxar os certificados\ne cursos concluídos" as api_historico_nrs
-  --> ===nrs_fim===
-  --> "Outras ações" as acoes_nrs
-  --> (*)
-  acoes_nrs --> "Voltar para Home" as home_nrs
-}
-
-partition "Chatbot" {
-  home --> "Falar com Chatbot" as abrir_chatbot
-  --> ===chatbot_inicio===
-  --> "Tela de Conversa" as tela_chatbot
-  --> ===chatbot_fim===
-
-  ===chatbot_inicio=== --> "API do Chatbot\npara iniciar conversa" as api_chatbot
-  --> ===chatbot_fim===
-  --> if "Continuou conversa?" then
-    -->[Sim] "Continua na tela\nde conversa" as continuar_chatbot
-  else
-    -->[Não] "Salva a conversa\nno banco" as salvar_chatbot
-    --> "Outras ações" as acoes_chatbot
-    --> (*)
-  endif
-  acoes_chatbot --> "Voltar para Home" as home_chatbot
-
-  ' A imagem mantém a conexão da tela do chatbot com a API do Histórico das NRs.
-  tela_chatbot --> api_historico_nrs
-}
-
-partition "Chat com o gestor" {
-  ' Sem seta de entrada na imagem do ZIP.
-  "Chat com o Gestor" --> ===gestor_inicio===
-  --> "Tela de Conversa" as tela_chat_gestor
-  --> ===gestor_fim===
-
-  ===gestor_inicio=== --> "API de chat com histórico\nde mensagens com o Gestor" as api_chat_gestor
-  --> ===gestor_fim===
-  --> if "Continuou conversa?" then
-    -->[Sim] "Continua na tela\nde conversa" as continuar_chat_gestor
-  else
-    -->[Não] "Salva a conversa\nno banco" as salvar_chat_gestor
-    --> "Outras ações" as acoes_chat_gestor
-    --> (*)
-  endif
-  acoes_chat_gestor --> "Voltar para Home" as home_chat_gestor
-}
-
+!include estilo.iuml
+title Astro — jornada do colaborador no mobile
+start
+:Concluir acesso autenticado\n(ver diagrama de acesso);
+:Carregar Home pessoal\nGET /home/collaborator;
+repeat
+  :Escolher área na navegação;
+  switch (Área escolhida)
+  case (Eventos)
+    :Consultar eventos atribuídos\ne detalhes da participação;
+    :Consultar prazo, modo de conclusão\ne exigência de evidência;
+    if (Deseja enviar conclusão?) then (sim)
+      :Seguir fluxo de conclusão de evento\n(ver diagrama de eventos);
+    endif
+  case (Perfil e NRs)
+    :Consultar GET /user/me;
+    :Exibir cargo, unidade, NRs do cargo\ne validades retornadas;
+    note right
+      API reúne dados relacionais e catálogo.
+      NRs de unidade são contextuais;
+      não criam obrigação pessoal automaticamente.
+      Não há uma API separada de Histórico
+      confirmada nos repositórios.
+    end note
+  case (Alertas)
+    :Consultar notificações da própria conta;
+    :Abrir detalhe e confirmar leitura;
+  case (Conversas)
+    :Escolher gestor ou Astrinho;
+    :Seguir fluxo de comunicação\n(ver diagrama de comunicação);
+  case (Conta)
+    :Consultar conta e atualizar\ncampos / foto permitidos;
+  endswitch
+  :Retornar à navegação;
+repeat while (Continuar usando o app?) is (sim) not (não)
+:Encerrar sessão ou deixar o app;
+stop
+legend bottom
+  Visão funcional do código consultado em 31/10/2026.
+  Uma ação de menu é uma escolha, não uma execução paralela.
+  Integração disponível no código não comprova execução em produção.
+endlegend
 @enduml

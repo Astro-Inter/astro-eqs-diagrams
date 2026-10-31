@@ -1,61 +1,42 @@
 @startuml fluxo_gestor
-title Fluxo do gestor
-
-' Jira: https://luizacursino.atlassian.net/browse/SCRUM-558
-' Fonte: Entrega Astro/Diagramas/Fluxo Gestor - Diagrama de atividades.jpg
-' no arquivo entrega-astro.zip.
-skinparam shadowing false
-skinparam defaultFontName SansSerif
-skinparam activity {
-  BackgroundColor White
-  BorderColor #333333
-  StartColor #333333
-  EndColor #333333
-  BarColor #333333
-}
-
-partition "Acesso ao workspace" {
-  (*) --> "Landing Page" as landing_page
-  --> if "Tem cadastro" then
-    -->[Sim] "Workspace" as workspace
-  else
-    -->[Não] "Gera Chave de acesso" as gerar_chave
-    --> "Cria Workspace da empresa" as criar_workspace
-    --> workspace
-  endif
-}
-
-partition "Configurações" {
-  workspace --> "Configuração do workspace" as configurar_workspace
-  --> (*)
-
-  workspace --> "Configurações de NRs\nda empresa" as configurar_nrs
-  --> (*)
-
-  workspace --> "Criação de Unidades" as criar_unidades
-  --> "Configuração da unidade" as configurar_unidade
-  --> (*)
-}
-
-partition "Cadastro de funcionários" {
-  workspace --> "Cadastrar funcionários" as cadastrar_funcionarios
-  --> "Faz cadastro manual" as cadastro_manual
-  --> if "Já existe unidade?" then
-    -->[Sim] "Cria cargos de funcionários" as criar_cargos
-    --> "Sugere NRs para cargo criado" as sugerir_nrs
-    --> "Configura NRs do cargo" as configurar_nrs_cargo
-    --> "Cria perfis de funcionários" as criar_perfis
-    --> "Gera chave de acesso para contas\ndos funcionários criados" as gerar_chaves_funcionarios
-    --> (*)
-  else
-    -->[Não] criar_unidades
-  endif
-
-  ' O rótulo "Exporta planilha" é o que consta na imagem de origem.
-  cadastrar_funcionarios --> "Exporta planilha de funcionários" as exportar_planilha
-  --> "Cria cargos e perfis de funcionário\npor meio do excel" as criar_perfis_excel
-  --> "Configuração posterior de NRs\npor cargo" as configurar_nrs_excel
-  --> gerar_chaves_funcionarios
-}
-
+!include estilo.iuml
+title Astro — jornada de gestão
+start
+:Entrar como GESTOR ou GESTOR_WORKSPACE\n(ver acesso; criação da empresa em workspace);
+repeat
+  :Abrir Home e escolher ação\ncompatível com perfil e canal;
+  switch (Área)
+  case (Pessoas e conformidade)
+    :Consultar pessoas, cargos, unidades\ne conformidades autorizadas;
+    if (Pré-cadastrar colaborador?) then (sim)
+      :Selecionar cargo / unidade ativos;\nvalidar CPF, e-mail e modalidade;
+      :POST /collaborators cria pré-cadastro\ne enfileira e-mail de primeiro acesso;
+    else (outras ações)
+      :Gerenciar cargos / NRs; registrar\nou importar validades e conformidades;
+    endif
+  case (Operação)
+    if (Ação de eventos?) then (sim)
+      :Gerenciar eventos, turmas e participantes;\nvalidar / atribuir somente como criador;\n(ver diagrama de eventos);
+    else (formulários)
+      :Criar / analisar formulários no web\nou responder recebidos no mobile\ncomo gestor destinatário;
+    endif
+  case (Consulta e comunicação)
+    :Consultar dashboards no web;\nalertas, Astrinho e chat no canal disponível;
+  case (Workspace)
+    if (Perfil GESTOR_WORKSPACE?) then (sim)
+      :Editar empresa / criar ou editar unidades;\nsincronizar planilha de colaboradores;\ngerenciar gestores / transferir responsabilidade;
+    else (GESTOR)
+      :Bloquear ações exclusivas;\nmanter gestão operacional permitida;
+    endif
+  endswitch
+  :Retornar à Home / navegação;
+repeat while (Continuar?) is (sim) not (não)
+:Encerrar sessão;
+stop
+legend bottom
+  Gestor mantém capacidades pessoais de Colaborador na mesma conta.
+  Planilha do workspace é exclusiva do responsável; importação de conformidades não.
+  Ações agrupadas são opções; não representam sequência obrigatória.
+  Pagamentos demonstrativos não integram este fluxo confirmado.
+endlegend
 @enduml

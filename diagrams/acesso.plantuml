@@ -1,0 +1,70 @@
+@startuml acesso
+!include estilo.iuml
+title Astro — identificação, primeiro acesso e login
+start
+:Informar e-mail;
+:API principal identifica perfil e status\nPOST /verify-email;
+if (Conta operacional encontrada?) then (sim)
+  if (Conta DESATIVADA?) then (sim)
+    :Informar bloqueio de acesso;
+    stop
+  endif
+  if (Conta PRE_CADASTRADA?) then (sim)
+    :No mobile, informar chave\nrecebida por e-mail;
+    :Verificar chave no Redis via API\nPOST /verify-key;
+    if (Chave válida?) then (sim)
+      :Definir senha e criar / recuperar\nidentidade Firebase;
+      :Vincular UID e ativar conta\nPOST /activate;
+      if (Ativação confirmada?) then (sim)
+        :Continuar com a sessão Firebase;
+      else (não)
+        :Exibir erro e permitir nova tentativa\nsem duplicar a identidade já criada;
+        stop
+      endif
+    else (não)
+      :Exibir erro; corrigir chave\nou solicitar reenvio ao gestor;
+      stop
+    endif
+  else (ATIVA)
+    :Informar senha;
+    if (Solicitou recuperação?) then (sim)
+      :Solicitar e-mail de recuperação\nastro-password-reset;
+      :Firebase valida o código\ne confirma a nova senha;
+      :Voltar ao login;
+      stop
+    endif
+    :Autenticar no Firebase\ncom e-mail e senha;
+    if (Credenciais aceitas?) then (sim)
+      :Obter sessão e ID token;
+    else (não)
+      :Exibir falha sem liberar área privada;
+      stop
+    endif
+  endif
+  :Carregar contexto autorizado\ncom Firebase ID token;
+  note right
+    Identificação por e-mail não autentica.
+    A API valida token, papel e escopo atual.
+    Erros de infraestrutura não liberam acesso.
+  end note
+  if (Canal web?) then (sim)
+    if (GESTOR ou GESTOR_WORKSPACE?) then (sim)
+      :Abrir Home de gestão;
+    else (não)
+      :Informar que este perfil\nnão acessa o painel de gestão;
+    endif
+  else (mobile)
+    :Abrir contexto pessoal; gestores\ntambém acessam funções de gestão;
+  endif
+else (não)
+  :Informar conta ausente / perfil inadequado;
+  note right
+    Colaborador não se cadastra livremente:
+    o pré-cadastro vem da empresa.
+    Criação de workspace é outro fluxo.
+    ADMIN usa o catálogo web e não é
+    uma pessoa operacional do workspace.
+  end note
+endif
+stop
+@enduml

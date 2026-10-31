@@ -1,0 +1,24 @@
+' Identidade visual compartilhada. Sem dependências remotas.
+' Jira: SCRUM-558. Evidências e snapshots: docs/revisao-contexto.md.
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName SansSerif
+skinparam defaultFontSize 13
+skinparam shadowing false
+skinparam ArrowColor #645679
+skinparam activity {
+  BackgroundColor #F5F0FC
+  BorderColor #7952A5
+  FontColor #292234
+  DiamondBackgroundColor #E9DCF8
+  DiamondBorderColor #7952A5
+  StartColor #7952A5
+  EndColor #7952A5
+  BarColor #7952A5
+}
+skinparam note {
+  BackgroundColor #FFF8E8
+  BorderColor #C9AF76
+  FontColor #493E29
+}
+skinparam packageStyle rectangle
+skinparam roundcorner 12

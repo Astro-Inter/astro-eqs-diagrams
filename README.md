@@ -1,102 +1,135 @@
-# astro-eqs-diagrams
+# Diagramas do Astro
 
-Diagramas do projeto Astro em PlantUML, na tarefa
-[SCRUM-558](https://luizacursino.atlassian.net/browse/SCRUM-558).
+Diagramas PlantUML revisados com os repositórios da [Astro-Inter](https://github.com/orgs/Astro-Inter/repositories), na tarefa [SCRUM-558](https://luizacursino.atlassian.net/browse/SCRUM-558).
 
-## Diagramas
+A revisão de **31/10/2026** substitui a transcrição literal das imagens do ZIP por uma visão baseada no código e nos contratos consultados. Foram inventariados **21 repositórios**, com aprofundamento nos fluxos pertinentes. O [relatório de revisão](docs/revisao-contexto.md) reúne correções, evidências fixadas por commit e divergências entre memorial e implementação.
 
-| Arquivo PlantUML | Imagem de referência no ZIP |
-| --- | --- |
-| [Casos de uso](diagrams/casos-de-uso.plantuml) | `Entrega Astro/Diagramas/Diagrama de caso de usos.png` |
-| [Fluxo do funcionário](diagrams/fluxo-funcionario.plantuml) | `Entrega Astro/Diagramas/Fluxo Funcionario - Diagrama de  atividades.jpg` |
-| [Fluxo do gestor](diagrams/fluxo-gestor.plantuml) | `Entrega Astro/Diagramas/Fluxo Gestor - Diagrama de atividades.jpg` |
+Os diagramas representam o comportamento descrito no código. Eles não confirmam deploy, ativação de workers ou testes ponta a ponta. A versão que transcreve o ZIP permanece no histórico Git, no commit `d0a4543`.
 
-As referências atuais são as três imagens do arquivo
-`c37f0fb9-e455-476d-bba6-24ab7ba6cc9c_entrega-astro.zip`.
-Elas substituem as fontes anteriores de casos de uso (Lucidchart) e do
-fluxo do funcionário (draw.io), que permanecem no histórico Git.
+## Navegação
 
-### Casos de uso
+| Diagrama | O que mostra | Fonte editável |
+| --- | --- | --- |
+| [Casos de uso e papéis](diagrams/rendered/casos_de_uso.svg) | Responsabilidades de Colaborador, Gestor, Gestor do Workspace e ADMIN. | [casos-de-uso.plantuml](diagrams/casos-de-uso.plantuml) |
+| [Acesso e primeiro login](diagrams/rendered/acesso.svg) | Identificação, chave, ativação e autenticação Firebase. | [acesso.plantuml](diagrams/acesso.plantuml) |
+| [Criação do workspace](diagrams/rendered/workspace.svg) | Chave de empresa, planilha inicial e conta responsável. | [workspace.plantuml](diagrams/workspace.plantuml) |
+| [Jornada do colaborador](diagrams/rendered/fluxo_funcionario.svg) | Eventos, perfil e NRs, alertas, conta e comunicação no mobile. | [fluxo-funcionario.plantuml](diagrams/fluxo-funcionario.plantuml) |
+| [Jornada do gestor](diagrams/rendered/fluxo_gestor.svg) | Criação da empresa, operação cotidiana e ações exclusivas do responsável. | [fluxo-gestor.plantuml](diagrams/fluxo-gestor.plantuml) |
+| [Eventos e conformidade](diagrams/rendered/eventos.svg) | Turmas, evidências, atribuição, validação e geração de conformidade. | [eventos.plantuml](diagrams/eventos.plantuml) |
+| [Chat humano e Astrinho](diagrams/rendered/comunicacao.svg) | Serviços, autorização e salvamento de histórico em cada modalidade. | [comunicacao.plantuml](diagrams/comunicacao.plantuml) |
+| [Contexto dos repositórios](diagrams/rendered/arquitetura.svg) | Integrações principais, dados, processos de suporte e entrega. | [arquitetura.plantuml](diagrams/arquitetura.plantuml) |
 
-[Abrir imagem em tamanho completo](diagrams/rendered/casos_de_uso.svg)
+## Visualização
 
-![Casos de uso do Astro](diagrams/rendered/casos_de_uso.svg)
+No VS Code, abra este README e pressione **Ctrl + Shift + V**. Expanda o diagrama desejado. Cada imagem possui um link para abrir em tamanho completo; os arquivos SVG podem ser abertos no navegador e ampliados sem perder nitidez.
 
-### Fluxo do funcionário
+<details open>
+<summary>Casos de uso e papéis</summary>
 
-[Abrir imagem em tamanho completo](diagrams/rendered/fluxo_funcionario.svg)
+Responsabilidades de Colaborador, Gestor, Gestor do Workspace e ADMIN.
 
-![Fluxo do funcionário](diagrams/rendered/fluxo_funcionario.svg)
+[Abrir imagem em tamanho completo](diagrams/rendered/casos_de_uso.svg) · [Editar PlantUML](diagrams/casos-de-uso.plantuml)
 
-### Fluxo do gestor
+![Casos de uso e papéis](diagrams/rendered/casos_de_uso.svg)
 
-[Abrir imagem em tamanho completo](diagrams/rendered/fluxo_gestor.svg)
+</details>
 
-![Fluxo do gestor](diagrams/rendered/fluxo_gestor.svg)
+<details>
+<summary>Acesso e primeiro login</summary>
 
-## Renderização
+Identificação, chave, ativação e autenticação Firebase.
 
-As imagens acima são arquivos SVG gerados a partir dos `.plantuml` e
-versionados junto com eles. Depois de alterar um diagrama, execute um dos
-comandos abaixo para atualizar sua imagem no README.
+[Abrir imagem em tamanho completo](diagrams/rendered/acesso.svg) · [Editar PlantUML](diagrams/acesso.plantuml)
 
-Com Java, PlantUML e Graphviz:
+![Acesso e primeiro login](diagrams/rendered/acesso.svg)
+
+</details>
+
+<details>
+<summary>Criação do workspace</summary>
+
+Chave de empresa, validação da planilha inicial, conta responsável e pré-cadastros.
+
+[Abrir imagem em tamanho completo](diagrams/rendered/workspace.svg) · [Editar PlantUML](diagrams/workspace.plantuml)
+
+![Criação do workspace](diagrams/rendered/workspace.svg)
+
+</details>
+
+<details>
+<summary>Jornada do colaborador</summary>
+
+Eventos, perfil e NRs, alertas, conta e comunicação no mobile.
+
+[Abrir imagem em tamanho completo](diagrams/rendered/fluxo_funcionario.svg) · [Editar PlantUML](diagrams/fluxo-funcionario.plantuml)
+
+![Jornada do colaborador](diagrams/rendered/fluxo_funcionario.svg)
+
+</details>
+
+<details>
+<summary>Jornada do gestor</summary>
+
+Criação da empresa, operação cotidiana e ações exclusivas do responsável.
+
+[Abrir imagem em tamanho completo](diagrams/rendered/fluxo_gestor.svg) · [Editar PlantUML](diagrams/fluxo-gestor.plantuml)
+
+![Jornada do gestor](diagrams/rendered/fluxo_gestor.svg)
+
+</details>
+
+<details>
+<summary>Eventos e conformidade</summary>
+
+Turmas, evidências, atribuição, validação e geração de conformidade.
+
+[Abrir imagem em tamanho completo](diagrams/rendered/eventos.svg) · [Editar PlantUML](diagrams/eventos.plantuml)
+
+![Eventos e conformidade](diagrams/rendered/eventos.svg)
+
+</details>
+
+<details>
+<summary>Chat humano e Astrinho</summary>
+
+Serviços, autorização e salvamento de histórico em cada modalidade.
+
+[Abrir imagem em tamanho completo](diagrams/rendered/comunicacao.svg) · [Editar PlantUML](diagrams/comunicacao.plantuml)
+
+![Chat humano e Astrinho](diagrams/rendered/comunicacao.svg)
+
+</details>
+
+<details>
+<summary>Contexto dos repositórios</summary>
+
+Integrações principais, dados, processos de suporte e entrega.
+
+[Abrir imagem em tamanho completo](diagrams/rendered/arquitetura.svg) · [Editar PlantUML](diagrams/arquitetura.plantuml)
+
+![Contexto dos repositórios](diagrams/rendered/arquitetura.svg)
+
+</details>
+
+## Atualizar as imagens
+
+Os `.plantuml` são as fontes; os SVGs em `diagrams/rendered/` são as imagens versionadas no README. Depois de editar uma fonte ou o estilo compartilhado `diagrams/estilo.iuml`, gere novamente as imagens a partir da raiz do repositório:
 
 ```sh
-java -jar plantuml.jar -charset UTF-8 -tsvg -o rendered diagrams/*.plantuml
+java -jar plantuml.jar -charset UTF-8 -checkonly "diagrams/*.plantuml"
+java -jar plantuml.jar -charset UTF-8 -Playout=smetana -tsvg -o rendered "diagrams/*.plantuml"
 ```
 
-Nas versões do PlantUML com Smetana, é possível renderizar sem instalar
-Graphviz:
+O comando usa Java e PlantUML com Smetana, sem instalação separada de Graphviz. O estilo é local, sem includes remotos. Para manter fontes e imagens coerentes, inclua ambos no mesmo commit.
 
-```sh
-java -jar plantuml.jar -charset UTF-8 -Playout=smetana -tsvg -o rendered diagrams/*.plantuml
-```
+## Principais correções
 
-## Critérios da conversão
+- Separação de Colaborador, Gestor, Gestor do Workspace e ADMIN, com limites por canal.
+- Primeiro acesso por chave separado de login Firebase e criação de workspace.
+- Ações de navegação como escolhas, com retorno à Home; sem paralelismo artificial.
+- Eventos com turmas, evidências e validação pelo gestor criador.
+- Certificados tratados como possíveis evidências, sem uma relação obrigatória de consulta para alteração.
+- Chat humano e IA com persistência durante a interação; sair da tela não dispara o salvamento.
+- Serviços automáticos, dados e integrações apresentados com seus limites documentados.
 
-Os rótulos, as decisões, as associações e os sentidos das setas foram
-transcritos das imagens. O layout é calculado pelo PlantUML; as partições
-organizam os fluxos sem reproduzir as coordenadas originais. Os nós finais
-de cada diagrama de atividades são apresentados como um encerramento comum.
-
-### Casos de uso
-
-- Inclui os atores Funcionário e Gestor, 15 casos de uso, 20 associações
-  dos atores e três relações `include`.
-- No ZIP, ambos os atores se associam a `Visualizar certificados`, que
-  inclui `Manipular certificados`. Esse sentido difere da fonte anterior
-  do Lucidchart e foi preservado conforme a imagem recebida.
-- As inclusões de eventos e NRs partem de `Manipular` para `Visualizar`.
-  A legenda `NR: Normas Regulamentadoras` foi mantida.
-- Cruzamentos com pontes representam linhas independentes, sem associação
-  adicional entre os casos de uso.
-
-### Fluxo do funcionário
-
-- Inclui autenticação, calendário e detalhes de eventos, histórico de
-  treinamentos, NRs, chatbot e chat com o gestor.
-- As barras de sincronização foram preservadas, inclusive no histórico,
-  que contém somente uma chamada de API na imagem do ZIP.
-- As etapas `Voltar para Home`, `Voltar para Calendário` e `Volta para Login`
-  foram mantidas como atividades sem seta de saída, conforme a imagem.
-  Não foram acrescentados ciclos de navegação.
-- Os dois chats incluem a decisão `Continuou conversa?`, a continuidade
-  na tela e o salvamento da conversa no banco antes de `Outras ações`.
-- O fluxo das NRs mantém o rótulo da API do Histórico e a ligação recebida
-  da tela do chatbot, como aparecem no original.
-- Na imagem, a atividade `Chat com o Gestor` não tem uma seta de entrada
-  visível; foi mantida como início separado desse trecho.
-
-### Fluxo do gestor
-
-- Inclui acesso à Landing Page, verificação de cadastro, geração de chave
-  de acesso, criação do workspace e suas configurações.
-- O workspace permite configurar NRs da empresa, criar e configurar
-  unidades e cadastrar funcionários por duas rotas: manual ou planilha.
-- No cadastro manual, a ausência de unidade direciona à criação e
-  configuração da unidade, encerrando essa rota como na imagem.
-- As rotas de cadastro com unidade existente e por planilha convergem na
-  geração de chaves para as contas dos funcionários.
-- O rótulo `Exporta planilha de funcionários` foi preservado, assim como
-  as etapas de criação de cargos e perfis por Excel e configuração de NRs.
+Consulte as [divergências que exigem decisão do projeto](docs/revisao-contexto.md#divergências-que-exigem-decisão-do-projeto) antes de usar estes diagramas como especificação de novas regras de negócio.

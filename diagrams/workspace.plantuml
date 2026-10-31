@@ -1,0 +1,42 @@
+@startuml workspace
+!include estilo.iuml
+title Astro — cadastro inicial de workspace no web
+start
+:Visitante escolhe criar workspace;
+:Solicitar chave de workspace por e-mail;
+:Fila Redis + astro-email-worker
+geram e enviam a chave;
+:Validar chave de workspace no web;
+if (Chave aceita pelo fluxo?) then (sim)
+  :Preencher empresa, CNPJ, conta responsável,
+endereços e planilha inicial;
+  :Enviar POST /register-workspace
+com dados e planilha XLS/XLSX;
+  :API valida conflitos, linhas, gestor e vínculos;
+  if (Dados válidos?) then (sim)
+    :Criar identidade Firebase do responsável;
+    :Persistir workspace, unidades, cargos
+e pessoas em transação;
+    if (Persistência confirmada?) then (sim)
+      :Responsável = GESTOR_WORKSPACE / ATIVO\ndemais pessoas = COLABORADOR / PRE_CADASTRADO;
+      :Enfileirar e-mails de primeiro acesso
+dos colaboradores;
+      :Confirmar cadastro e acessar painel
+com a sessão Firebase;
+    else (não)
+      :Solicitar compensação da identidade Firebase\ne exibir erro para correção / nova tentativa;
+    endif
+  else (não)
+    :Exibir erros de cadastro / planilha
+sem criar identidade ou workspace;
+  endif
+else (não)
+  :Exibir erro e permitir corrigir a chave;
+endif
+stop
+legend bottom
+  Chave de workspace é diferente da chave de ativação de colaborador.
+  Verificação da chave e cadastro são chamadas separadas; ver limites na revisão.
+  O envio à fila não confirma a entrega do e-mail pelo worker.
+endlegend
+@enduml
