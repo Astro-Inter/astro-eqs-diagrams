@@ -1,64 +1,80 @@
 # astro-eqs-diagrams
 
-Diagramas do projeto Astro em PlantUML.
+Diagramas do projeto Astro em PlantUML, na tarefa
+[SCRUM-558](https://luizacursino.atlassian.net/browse/SCRUM-558).
 
-## Casos de uso
+## Diagramas
 
-O arquivo [diagrams/casos-de-uso.plantuml](diagrams/casos-de-uso.plantuml)
-converte a página `Diagrama de caso de uso` do
-[documento no Lucidchart](https://lucid.app/lucidchart/2a5bf69e-c376-4aea-a181-a1d802ce6fba/edit?page=.Q4MUjXso07N),
-também na tarefa [SCRUM-558](https://luizacursino.atlassian.net/browse/SCRUM-558).
-Contém os atores Funcionário e Gestor, os 15 casos de uso, as 20 associações
-dos atores e as três relações `include`, dentro do limite do sistema Astro.
+| Arquivo PlantUML | Imagem de referência no ZIP |
+| --- | --- |
+| [Casos de uso](diagrams/casos-de-uso.plantuml) | `Entrega Astro/Diagramas/Diagrama de caso de usos.png` |
+| [Fluxo do funcionário](diagrams/fluxo-funcionario.plantuml) | `Entrega Astro/Diagramas/Fluxo Funcionario - Diagrama de  atividades.jpg` |
+| [Fluxo do gestor](diagrams/fluxo-gestor.plantuml) | `Entrega Astro/Diagramas/Fluxo Gestor - Diagrama de atividades.jpg` |
 
-A conversão foi conferida com as exportações JSON e SVG do Lucidchart.
-Conexões do Gestor que terminavam em linhas de associação do Funcionário
-foram representadas como associações diretas ao mesmo caso de uso.
-A inclusão de `Visualizar certificados` em `Manipular certificados` foi
-confirmada visualmente, pois sua ponta não está vinculada no JSON exportado.
-A legenda de NRs foi mantida; os campos de pontos de extensão presentes
-no JSON, mas não exibidos no original, não foram acrescentados ao desenho.
+As referências atuais são as três imagens do arquivo
+`c37f0fb9-e455-476d-bba6-24ab7ba6cc9c_entrega-astro.zip`.
+Elas substituem as fontes anteriores de casos de uso (Lucidchart) e do
+fluxo do funcionário (draw.io), que permanecem no histórico Git.
 
-Para renderizar sem instalar Graphviz, usando PlantUML com Smetana:
+## Renderização
 
-```sh
-java -jar plantuml.jar -charset UTF-8 -Playout=smetana -tsvg diagrams/casos-de-uso.plantuml
-```
-
-## Fluxo do funcionário
-
-O arquivo [diagrams/fluxo-funcionario.plantuml](diagrams/fluxo-funcionario.plantuml)
-converte o diagrama draw.io `Diagrama sem nome` (página `Página-1`) para
-PlantUML, conforme a tarefa [SCRUM-558](https://luizacursino.atlassian.net/browse/SCRUM-558).
-Inclui autenticação, calendário e detalhes de eventos, histórico de treinamentos,
-NRs, chatbot e chat com o gestor.
-
-Para gerar uma imagem com Java e o renderizador PlantUML:
+Com Java, PlantUML e Graphviz:
 
 ```sh
-java -jar plantuml.jar -charset UTF-8 -tsvg diagrams/fluxo-funcionario.plantuml
+java -jar plantuml.jar -charset UTF-8 -tsvg diagrams/*.plantuml
 ```
 
-A renderização usa Graphviz. Nas versões do PlantUML com o motor Smetana,
-é possível renderizar sem instalar Graphviz:
+Nas versões do PlantUML com Smetana, é possível renderizar sem instalar
+Graphviz:
 
 ```sh
-java -jar plantuml.jar -charset UTF-8 -Playout=smetana -tsvg diagrams/fluxo-funcionario.plantuml
+java -jar plantuml.jar -charset UTF-8 -Playout=smetana -tsvg diagrams/*.plantuml
 ```
 
-### Particularidades da conversão
+## Critérios da conversão
 
-- As barras de sincronização e as atividades paralelas foram mantidas.
-- Setas sobrepostas com a mesma origem e destino foram consolidadas.
-- Conectores sem vínculo explícito foram associados às atividades ou barras
-  nas quais suas extremidades terminam visualmente. Trechos soltos sem
-  atividade identificável e o texto avulso `Text` foram omitidos.
-- O histórico tem duas atividades com o mesmo rótulo de API no original;
-  ambas foram mantidas como atividades distintas.
-- O fluxo das NRs também usa o rótulo da API do Histórico no original.
-- A conexão da tela do chatbot para a API do Histórico do fluxo das NRs
-  foi preservada, pois existe explicitamente no arquivo de origem.
-- O encerramento do histórico foi inferido a partir da saída de sua barra
-  de sincronização; no original, essa seta termina sem atividade vinculada.
-- Os nós finais foram reunidos em um encerramento comum. O layout é
-  calculado pelo PlantUML e não reproduz as coordenadas do draw.io.
+Os rótulos, as decisões, as associações e os sentidos das setas foram
+transcritos das imagens. O layout é calculado pelo PlantUML; as partições
+organizam os fluxos sem reproduzir as coordenadas originais. Os nós finais
+de cada diagrama de atividades são apresentados como um encerramento comum.
+
+### Casos de uso
+
+- Inclui os atores Funcionário e Gestor, 15 casos de uso, 20 associações
+  dos atores e três relações `include`.
+- No ZIP, ambos os atores se associam a `Visualizar certificados`, que
+  inclui `Manipular certificados`. Esse sentido difere da fonte anterior
+  do Lucidchart e foi preservado conforme a imagem recebida.
+- As inclusões de eventos e NRs partem de `Manipular` para `Visualizar`.
+  A legenda `NR: Normas Regulamentadoras` foi mantida.
+- Cruzamentos com pontes representam linhas independentes, sem associação
+  adicional entre os casos de uso.
+
+### Fluxo do funcionário
+
+- Inclui autenticação, calendário e detalhes de eventos, histórico de
+  treinamentos, NRs, chatbot e chat com o gestor.
+- As barras de sincronização foram preservadas, inclusive no histórico,
+  que contém somente uma chamada de API na imagem do ZIP.
+- As etapas `Voltar para Home`, `Voltar para Calendário` e `Volta para Login`
+  foram mantidas como atividades sem seta de saída, conforme a imagem.
+  Não foram acrescentados ciclos de navegação.
+- Os dois chats incluem a decisão `Continuou conversa?`, a continuidade
+  na tela e o salvamento da conversa no banco antes de `Outras ações`.
+- O fluxo das NRs mantém o rótulo da API do Histórico e a ligação recebida
+  da tela do chatbot, como aparecem no original.
+- Na imagem, a atividade `Chat com o Gestor` não tem uma seta de entrada
+  visível; foi mantida como início separado desse trecho.
+
+### Fluxo do gestor
+
+- Inclui acesso à Landing Page, verificação de cadastro, geração de chave
+  de acesso, criação do workspace e suas configurações.
+- O workspace permite configurar NRs da empresa, criar e configurar
+  unidades e cadastrar funcionários por duas rotas: manual ou planilha.
+- No cadastro manual, a ausência de unidade direciona à criação e
+  configuração da unidade, encerrando essa rota como na imagem.
+- As rotas de cadastro com unidade existente e por planilha convergem na
+  geração de chaves para as contas dos funcionários.
+- O rótulo `Exporta planilha de funcionários` foi preservado, assim como
+  as etapas de criação de cargos e perfis por Excel e configuração de NRs.

@@ -1,0 +1,61 @@
+@startuml fluxo_gestor
+title Fluxo do gestor
+
+' Jira: https://luizacursino.atlassian.net/browse/SCRUM-558
+' Fonte: Entrega Astro/Diagramas/Fluxo Gestor - Diagrama de atividades.jpg
+' no arquivo entrega-astro.zip.
+skinparam shadowing false
+skinparam defaultFontName SansSerif
+skinparam activity {
+  BackgroundColor White
+  BorderColor #333333
+  StartColor #333333
+  EndColor #333333
+  BarColor #333333
+}
+
+partition "Acesso ao workspace" {
+  (*) --> "Landing Page" as landing_page
+  --> if "Tem cadastro" then
+    -->[Sim] "Workspace" as workspace
+  else
+    -->[Não] "Gera Chave de acesso" as gerar_chave
+    --> "Cria Workspace da empresa" as criar_workspace
+    --> workspace
+  endif
+}
+
+partition "Configurações" {
+  workspace --> "Configuração do workspace" as configurar_workspace
+  --> (*)
+
+  workspace --> "Configurações de NRs\nda empresa" as configurar_nrs
+  --> (*)
+
+  workspace --> "Criação de Unidades" as criar_unidades
+  --> "Configuração da unidade" as configurar_unidade
+  --> (*)
+}
+
+partition "Cadastro de funcionários" {
+  workspace --> "Cadastrar funcionários" as cadastrar_funcionarios
+  --> "Faz cadastro manual" as cadastro_manual
+  --> if "Já existe unidade?" then
+    -->[Sim] "Cria cargos de funcionários" as criar_cargos
+    --> "Sugere NRs para cargo criado" as sugerir_nrs
+    --> "Configura NRs do cargo" as configurar_nrs_cargo
+    --> "Cria perfis de funcionários" as criar_perfis
+    --> "Gera chave de acesso para contas\ndos funcionários criados" as gerar_chaves_funcionarios
+    --> (*)
+  else
+    -->[Não] criar_unidades
+  endif
+
+  ' O rótulo "Exporta planilha" é o que consta na imagem de origem.
+  cadastrar_funcionarios --> "Exporta planilha de funcionários" as exportar_planilha
+  --> "Cria cargos e perfis de funcionário\npor meio do excel" as criar_perfis_excel
+  --> "Configuração posterior de NRs\npor cargo" as configurar_nrs_excel
+  --> gerar_chaves_funcionarios
+}
+
+@enduml
