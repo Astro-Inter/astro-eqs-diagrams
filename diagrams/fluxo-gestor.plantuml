@@ -1,66 +1,40 @@
 @startuml fluxo_gestor
 !include estilo.iuml
-title Astro — jornada de gestão
+title Astro — fluxo do gestor
 
-(*) --> if "Criar workspace no web?" then
-  -->[sim] "Solicitar a chave por e-mail\ne validar o acesso ao cadastro da empresa" as chave
-  --> "Preencher empresa, responsável,\nendereços e planilha inicial" as cadastro
-  --> "Validar as informações e criar\na empresa, as unidades, os cargos e as contas" as criar
-  --> "Ativar a conta do responsável pelo workspace;\nenviar chaves de primeiro acesso aos colaboradores" as ativar
-  --> "Entrar com e-mail e senha\ne verificar as permissões de gestão" as entrar
+(*) --> if "Criar workspace?" then
+  -->[sim] "Validar chave da empresa" as chave
+  --> "Cadastrar empresa, unidades\ne colaboradores por planilha" as criar
+  --> "Entrar com e-mail e senha" as entrar
 else
   -->[não] entrar
 endif
-entrar --> "Abrir Home e escolher ação\ncompatível com perfil e canal" as menu
+entrar --> "Abrir tela inicial" as menu
 
-menu -->[Pessoas e conformidade] "Consultar pessoas, cargos, unidades\ne conformidades autorizadas" as pessoas
---> if "Pré-cadastrar colaborador?" then
-  -->[sim] "Selecionar cargo / unidade ativos;\nvalidar CPF, e-mail e modalidade" as dados_colaborador
-  --> "Pré-cadastrar o colaborador\ne enviar a chave de primeiro acesso por e-mail" as cadastrar
-  --> menu
-else
-  -->[não] "Gerenciar cargos / NRs; registrar\nou importar validades e conformidades" as conformidades
-  --> menu
-endif
-
-menu -->[Operação] if "Ação de eventos?" then
-  -->[sim] "Gerenciar eventos, turmas e participantes;\nvalidar / atribuir somente como criador" as eventos
-  --> if "Conclusão enviada pelo participante?" then
-    -->[sim] "Analisar a conclusão e as evidências;\naprovar ou rejeitar com justificativa" as analisar
-    --> "Se a conclusão for aprovada e o evento tiver NR,\natualizar a conformidade e a validade" as atualizar_conformidade
-  else
-    -->[não] "Registrar conclusão do participante" as registrar_conclusao
-    --> atualizar_conformidade
-  endif
-  atualizar_conformidade --> menu
-else
-  -->[não] "Criar / analisar formulários no web\nou responder recebidos no mobile\ncomo gestor destinatário" as formularios
-  --> menu
-endif
-
-menu -->[Consulta e comunicação] "Consultar dashboards no web;\nalertas, Astrinho e chat no canal disponível" as consultas
+menu -->[Colaboradores] "Pré-cadastrar colaboradores\ne enviar chave de primeiro acesso" as pessoas
+--> menu
+menu -->[Cargos e NRs] "Gerenciar cargos, NRs\ne conformidades" as conformidades
+--> menu
+menu -->[Eventos] "Gerenciar eventos e\nvalidar conclusões" as eventos
+--> menu
+menu -->[Formulários] "Criar, analisar ou responder\nformulários recebidos" as formularios
+--> menu
+menu -->[Consultas] "Consultar indicadores, alertas\ne conversas" as consultas
 --> menu
 
-menu -->[Workspace] if "É o responsável pelo workspace?" then
-  -->[sim] "Editar empresa / criar ou editar unidades;\nsincronizar planilha de colaboradores;\ngerenciar gestores / transferir responsabilidade" as administrar
+menu -->[Workspace] if "É o responsável?" then
+  -->[sim] "Administrar empresa, unidades,\nplanilhas e gestores" as administrar
   --> menu
 else
-  -->[não] "Bloquear ações exclusivas;\nmanter gestão operacional permitida" as restringir
+  -->[não] "Manter acesso às funções de gestão" as restringir
   --> menu
 endif
-
-menu -->[Saída] if "Continuar?" then
-  -->[sim] menu
-else
-  -->[não] "Sair da conta" as sair
-  --> (*)
-endif
+menu -->[Sair] "Sair da conta" as sair
+--> (*)
 
 legend bottom
-  O gestor também tem as funções pessoais de colaborador na mesma conta.
-  Somente o responsável administra a empresa e os demais gestores.
-  As setas da Home indicam opções de navegação.
-  Losangos representam apenas perguntas com respostas sim ou não.
-  A chave da empresa é diferente da chave de primeiro acesso do colaborador.
+  O gestor também tem as funções pessoais do colaborador.
+  Cada gestor valida apenas as conclusões dos eventos que criou.
+  Cada ação respeita as permissões e o canal web ou aplicativo.
 endlegend
 @enduml

@@ -66,6 +66,8 @@ Os desenhos usam linguagem de negócio: ações das pessoas e decisões do proce
 
 Os losangos são usados somente para perguntas com respostas **sim** e **não**. As opções de menu aparecem em setas saindo da tela inicial, sem losangos de seleção ou de junção.
 
+As etapas secundárias estão agrupadas para facilitar a leitura. Os três desenhos mostram os fluxos principais; as regras detalhadas e as evidências permanecem no relatório de revisão.
+
 ## Principais correções
 
 - Separação de Colaborador, Gestor, Gestor do Workspace e ADMIN, com limites por canal.

@@ -85,6 +85,8 @@ O inventário dos 21 repositórios sustenta a revisão, sem criar diagramas adic
 
 Losangos ficam restritos a decisões binárias, com saídas `sim` e `não`. As opções de navegação são rótulos de setas que saem de uma atividade comum; as convergências retornam diretamente a atividades, sem losangos de junção.
 
+A apresentação foi resumida a pedido do usuário: operações relacionadas compartilham uma atividade ou caso de uso, e detalhes de validação, persistência e implementação permanecem neste relatório. Essa simplificação não concede permissões adicionais nem altera as regras consultadas.
+
 ## Verificação
 
 Validação de sintaxe e geração local dos SVGs com PlantUML/Smetana; conferência visual das imagens e dos links do README. Não foram executados testes das aplicações externas. A revisão não altera código de produto, configurações, dados, permissões, deploy ou status do Jira.

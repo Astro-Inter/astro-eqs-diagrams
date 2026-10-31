@@ -1,9 +1,9 @@
 @startuml casos_de_uso
 !include estilo.iuml
-title Astro — papéis e casos de uso
+title Astro — casos de uso
 left to right direction
 skinparam nodesep 20
-skinparam ranksep 55
+skinparam ranksep 45
 skinparam usecaseBackgroundColor #F5F0FC
 skinparam usecaseBorderColor #7952A5
 skinparam actorBorderColor #645679
@@ -18,66 +18,50 @@ gestor <|-- responsavel
 
 rectangle "Astro" {
   package "Acesso e uso pessoal" {
-    usecase "Criar workspace\nno web" as criar_workspace
-    usecase "Ativar conta pré-cadastrada\nno mobile" as ativar
-    usecase "Entrar / recuperar senha" as acesso
-    usecase "Consultar perfil, NRs\ne validades próprias" as perfil
-    usecase "Consultar eventos atribuídos\ne enviar conclusão / evidências" as participar
+    usecase "Criar workspace" as criar
+    usecase "Acessar / ativar conta" as acesso
+    usecase "Consultar perfil,\nNRs e validades" as perfil
+    usecase "Consultar eventos\ne enviar conclusão" as participar
     usecase "Consultar alertas" as alertas
-    usecase "Conversar com gestores" as chat
-    usecase "Conversar com o Astrinho\ne retomar conversas anteriores" as ia
+    usecase "Usar chat e Astrinho" as conversar
   }
-  package "Gestão operacional" {
-    usecase "Consultar e pré-cadastrar\ncolaboradores" as pessoas
-    usecase "Gerenciar cargos e\nsuas NRs" as cargos
-    usecase "Consultar unidades e\nassociar NRs contextuais" as unidades
-    usecase "Registrar / importar\nconformidades e validades" as conformidades
-    usecase "Criar e acompanhar eventos,\nturmas e participantes" as eventos
-    usecase "Atribuir ou validar conclusão\ndos eventos que criou" as validar
-    usecase "Criar e analisar formulários" as formularios
-    usecase "Responder formulários\nrecebidos como destinatário" as responder
-    usecase "Consultar dashboards\ndo workspace" as bi
-    usecase "Conversar com colaboradores\ne outros gestores" as chat_gestao
+  package "Gestão" {
+    usecase "Gerenciar colaboradores" as pessoas
+    usecase "Gerenciar cargos\ne NRs das unidades" as estrutura
+    usecase "Gerenciar conformidades" as conformidades
+    usecase "Gerenciar eventos\ne validar conclusões" as eventos
+    usecase "Criar, analisar e\nresponder formulários" as formularios
+    usecase "Consultar indicadores" as indicadores
   }
   package "Responsabilidade do workspace" {
-    usecase "Editar empresa e\ncriar / editar unidades" as empresa
-    usecase "Sincronizar colaboradores\npor planilha do workspace" as importar
-    usecase "Promover / administrar gestores" as gestores
-    usecase "Transferir responsabilidade\na outro gestor ativo" as transferir
+    usecase "Administrar empresa\ne unidades" as empresa
+    usecase "Importar colaboradores\npor planilha" as importar
+    usecase "Administrar gestores e\ntransferir responsabilidade" as gestores
   }
-  package "Catálogo global" {
-    usecase "Revisar e aprovar NRs\npendentes / editar catálogo" as catalogo
+  package "Administração Astro" {
+    usecase "Revisar catálogo de NRs" as catalogo
   }
 }
-visitante -- criar_workspace
-visitante -- ativar
+visitante -- criar
 visitante -- acesso
 colaborador -- perfil
 colaborador -- participar
 colaborador -- alertas
-colaborador -- chat
-colaborador -- ia
+colaborador -- conversar
 gestor -- pessoas
-gestor -- cargos
-gestor -- unidades
+gestor -- estrutura
 gestor -- conformidades
 gestor -- eventos
-gestor -- validar
 gestor -- formularios
-gestor -- responder
-gestor -- bi
-gestor -- chat_gestao
+gestor -- indicadores
 responsavel -- empresa
 responsavel -- importar
 responsavel -- gestores
-responsavel -- transferir
 admin -- catalogo
-admin -- acesso
 
 legend bottom
   O gestor mantém as funções pessoais do colaborador na mesma conta.
-  Colaboradores usam o aplicativo; gestores usam o aplicativo e o painel web.
-  O administrador Astro é responsável pelo catálogo geral de NRs.
-  Certificados podem ser anexados como evidências de eventos.
+  Colaborador conversa com gestores; gestores também conversam entre si.
+  Só o criador do evento valida conclusões; só o destinatário responde ao formulário.
 endlegend
 @enduml
