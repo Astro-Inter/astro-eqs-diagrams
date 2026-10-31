@@ -83,6 +83,8 @@ O escopo contém somente os três diagramas presentes no ZIP original, revisados
 
 O inventário dos 21 repositórios sustenta a revisão, sem criar diagramas adicionais de arquitetura, acesso, workspace, eventos ou comunicação.
 
+Losangos ficam restritos a decisões binárias, com saídas `sim` e `não`. As opções de navegação são rótulos de setas que saem de uma atividade comum; as convergências retornam diretamente a atividades, sem losangos de junção.
+
 ## Verificação
 
 Validação de sintaxe e geração local dos SVGs com PlantUML/Smetana; conferência visual das imagens e dos links do README. Não foram executados testes das aplicações externas. A revisão não altera código de produto, configurações, dados, permissões, deploy ou status do Jira.

@@ -64,6 +64,8 @@ O comando usa Java e PlantUML com Smetana, sem instalação separada de Graphviz
 
 Os desenhos usam linguagem de negócio: ações das pessoas e decisões do processo. Endpoints, protocolos, bancos e detalhes de implementação ficam nas fontes técnicas do relatório de revisão.
 
+Os losangos são usados somente para perguntas com respostas **sim** e **não**. As opções de menu aparecem em setas saindo da tela inicial, sem losangos de seleção ou de junção.
+
 ## Principais correções
 
 - Separação de Colaborador, Gestor, Gestor do Workspace e ADMIN, com limites por canal.
