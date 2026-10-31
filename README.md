@@ -62,6 +62,8 @@ java -jar plantuml.jar -charset UTF-8 -Playout=smetana -tsvg -o rendered "diagra
 
 O comando usa Java e PlantUML com Smetana, sem instalação separada de Graphviz. O estilo é local, sem includes remotos. Para manter fontes e imagens coerentes, inclua ambos no mesmo commit.
 
+Os desenhos usam linguagem de negócio: ações das pessoas e decisões do processo. Endpoints, protocolos, bancos e detalhes de implementação ficam nas fontes técnicas do relatório de revisão.
+
 ## Principais correções
 
 - Separação de Colaborador, Gestor, Gestor do Workspace e ADMIN, com limites por canal.

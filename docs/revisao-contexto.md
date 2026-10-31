@@ -73,6 +73,8 @@ Os SHAs abaixo são os snapshots da branch padrão obtidos durante a revisão. O
 
 ## Organização visual
 
+Os diagramas usam linguagem funcional, sem endpoints, protocolos, nomes de bancos ou identificadores técnicos de sessão. Os detalhes de implementação continuam nas evidências deste relatório.
+
 O escopo contém somente os três diagramas presentes no ZIP original, revisados conforme o projeto:
 
 - **Casos de uso:** responsabilidades e capacidades por papel. Generalização representa capacidades compartilhadas, não a aceitação do perfil COLABORADOR no web.

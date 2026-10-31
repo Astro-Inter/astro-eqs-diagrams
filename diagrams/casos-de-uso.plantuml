@@ -25,7 +25,7 @@ rectangle "Astro" {
     usecase "Consultar eventos atribuídos\ne enviar conclusão / evidências" as participar
     usecase "Consultar alertas" as alertas
     usecase "Conversar com gestores" as chat
-    usecase "Conversar com o Astrinho\ne retomar sessões próprias" as ia
+    usecase "Conversar com o Astrinho\ne retomar conversas anteriores" as ia
   }
   package "Gestão operacional" {
     usecase "Consultar e pré-cadastrar\ncolaboradores" as pessoas
@@ -75,10 +75,9 @@ admin -- catalogo
 admin -- acesso
 
 legend bottom
-  Generalização = capacidades pessoais compartilhadas, sem conta adicional.
-  Os canais e as permissões do servidor continuam distintos.
-  Colaborador: mobile. Gestores: web + mobile. ADMIN: catálogo administrativo.
-  Certificados podem ser evidências; não há módulo autônomo confirmado.
-  Visão de capacidades do código, não comprovação de deploy ou QA completo.
+  O gestor mantém as funções pessoais do colaborador na mesma conta.
+  Colaboradores usam o aplicativo; gestores usam o aplicativo e o painel web.
+  O administrador Astro é responsável pelo catálogo geral de NRs.
+  Certificados podem ser anexados como evidências de eventos.
 endlegend
 @enduml

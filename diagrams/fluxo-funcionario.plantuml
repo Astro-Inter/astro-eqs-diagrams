@@ -2,14 +2,14 @@
 !include estilo.iuml
 title Astro — jornada do colaborador no mobile
 start
-:Informar e-mail; API identifica perfil e status;
-if (Conta PRE_CADASTRADA?) then (sim)
-  :Validar chave recebida por e-mail;\ndefinir senha Firebase e ativar conta;
+:Informar e-mail e verificar a situação da conta;
+if (Primeiro acesso?) then (sim)
+  :Validar chave recebida por e-mail;\ndefinir senha e ativar conta;
 else (conta ativa)
-  :Autenticar com e-mail e senha no Firebase;
+  :Entrar com e-mail e senha;
 endif
-:Confirmar token, conta ativa e acesso autorizado;
-:Carregar Home pessoal\nGET /home/collaborator;
+:Verificar se a conta pode acessar o sistema;
+:Abrir a tela inicial;
 repeat
   :Escolher área na navegação;
   switch (Área escolhida)
@@ -17,18 +17,16 @@ repeat
     :Consultar eventos atribuídos\ne detalhes da participação;
     :Consultar prazo, modo de conclusão\ne exigência de evidência;
     if (Deseja enviar conclusão?) then (sim)
-      :API verifica modo COLABORADOR, prazo\ne até três evidências conforme exigência;
-      :Registrar conclusão PENDENTE\npara análise do gestor criador;
+      :Verificar se o evento permite o envio,\no prazo e as evidências exigidas;
+      :Enviar conclusão e evidências\npara análise do gestor responsável;
     endif
   case (Perfil e NRs)
-    :Consultar GET /user/me;
-    :Exibir cargo, unidade, NRs do cargo\ne validades retornadas;
+    :Abrir perfil e consultar minhas NRs;
+    :Visualizar cargo, unidade,\nNRs exigidas e validades;
     note right
-      API reúne dados relacionais e catálogo.
-      NRs de unidade são contextuais;
-      não criam obrigação pessoal automaticamente.
-      Não há uma API separada de Histórico
-      confirmada nos repositórios.
+      As NRs exigidas da pessoa vêm do cargo.
+      As NRs da unidade descrevem o contexto
+      da empresa e das inspeções.
     end note
   case (Alertas)
     :Consultar notificações da própria conta;
@@ -36,24 +34,22 @@ repeat
   case (Conversas)
     :Escolher gestor ou Astrinho;
     if (Conversa humana?) then (sim)
-      :Consultar contato / histórico autorizado;\nenviar por STOMP à API principal;
-      :Persistir mensagem no MongoDB\ne atualizar não lidas / entrega no Redis;
+      :Escolher um gestor, consultar o histórico\ne enviar mensagem;
+      :Salvar a mensagem e avisar o destinatário;
     else (Astrinho)
-      :Abrir sessão própria ou iniciar nova;\nenviar mensagem à API de IA;
-      :Persistir interação e apresentar resposta;\nmanter UUID para continuar a sessão;
+      :Retomar conversa com o Astrinho\nou iniciar uma nova e enviar a pergunta;
+      :Receber a resposta e manter\na conversa salva no histórico;
     endif
   case (Conta)
     :Consultar conta e atualizar\ncampos / foto permitidos;
   endswitch
   :Retornar à navegação;
 repeat while (Continuar usando o app?) is (sim) not (não)
-:Encerrar sessão ou deixar o app;
+:Sair da conta ou deixar o aplicativo;
 stop
 legend bottom
-  Visão funcional do código consultado em 31/10/2026.
-  Uma ação de menu é uma escolha, não uma execução paralela.
-  Conta desativada / autenticação inválida bloqueiam a área privada.
-  Sair do chat não dispara o salvamento: o histórico é persistido durante o uso.
-  Integração disponível no código não comprova execução em produção.
+  Conta desativada ou dados de acesso inválidos impedem a entrada.
+  Cada área é uma opção de navegação.
+  O histórico das conversas é salvo durante o uso.
 endlegend
 @enduml
