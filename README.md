@@ -16,19 +16,41 @@ As referências atuais são as três imagens do arquivo
 Elas substituem as fontes anteriores de casos de uso (Lucidchart) e do
 fluxo do funcionário (draw.io), que permanecem no histórico Git.
 
+### Casos de uso
+
+[Abrir imagem em tamanho completo](diagrams/rendered/casos_de_uso.svg)
+
+![Casos de uso do Astro](diagrams/rendered/casos_de_uso.svg)
+
+### Fluxo do funcionário
+
+[Abrir imagem em tamanho completo](diagrams/rendered/fluxo_funcionario.svg)
+
+![Fluxo do funcionário](diagrams/rendered/fluxo_funcionario.svg)
+
+### Fluxo do gestor
+
+[Abrir imagem em tamanho completo](diagrams/rendered/fluxo_gestor.svg)
+
+![Fluxo do gestor](diagrams/rendered/fluxo_gestor.svg)
+
 ## Renderização
+
+As imagens acima são arquivos SVG gerados a partir dos `.plantuml` e
+versionados junto com eles. Depois de alterar um diagrama, execute um dos
+comandos abaixo para atualizar sua imagem no README.
 
 Com Java, PlantUML e Graphviz:
 
 ```sh
-java -jar plantuml.jar -charset UTF-8 -tsvg diagrams/*.plantuml
+java -jar plantuml.jar -charset UTF-8 -tsvg -o rendered diagrams/*.plantuml
 ```
 
 Nas versões do PlantUML com Smetana, é possível renderizar sem instalar
 Graphviz:
 
 ```sh
-java -jar plantuml.jar -charset UTF-8 -Playout=smetana -tsvg diagrams/*.plantuml
+java -jar plantuml.jar -charset UTF-8 -Playout=smetana -tsvg -o rendered diagrams/*.plantuml
 ```
 
 ## Critérios da conversão
