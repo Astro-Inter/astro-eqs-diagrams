@@ -1,0 +1,70 @@
+@startuml casos_de_uso
+title Casos de uso do Astro
+left to right direction
+
+' Jira: https://luizacursino.atlassian.net/browse/SCRUM-558
+' Fonte: https://lucid.app/lucidchart/2a5bf69e-c376-4aea-a181-a1d802ce6fba/edit?page=.Q4MUjXso07N
+' Página: Diagrama de caso de uso.
+skinparam shadowing false
+skinparam defaultFontName SansSerif
+skinparam packageStyle rectangle
+skinparam nodesep 25
+skinparam ranksep 100
+skinparam usecase {
+  BackgroundColor #BD20F0
+  BorderColor #BD20F0
+  FontColor White
+}
+
+actor "Funcionário" as funcionario
+actor "Gestor" as gestor
+
+rectangle "Astro" {
+  usecase "Manipular\ncertificados" as manipular_certificados
+  usecase "Visualizar\ncertificados" as visualizar_certificados
+  usecase "Receber alertas\nde vencimento" as receber_alertas
+  usecase "Gerenciar status\nde treinamento" as gerenciar_treinamento
+  usecase "Gerenciar dados\ncadastrais" as gerenciar_dados
+  usecase "Chat entre\nusuários" as chat_usuarios
+  usecase "Interagir com\nchatbot" as chatbot
+  usecase "Visualizar\neventos marcados" as visualizar_eventos
+  usecase "Manipular\neventos marcados" as manipular_eventos
+  usecase "Visualizar NRs" as visualizar_nrs
+  usecase "Manipular NRs\ndo workspace" as manipular_nrs
+  usecase "Importar planilha com\ndados dos funcionários" as importar_planilha
+  usecase "Cadastrar\nfuncionários" as cadastrar_funcionarios
+  usecase "Criar workspace" as criar_workspace
+  usecase "Criar formulários" as criar_formularios
+
+  rectangle "NR: Normas Regulamentadoras" as legenda_nr
+}
+
+funcionario -- manipular_certificados
+funcionario -- receber_alertas
+funcionario -- gerenciar_treinamento
+funcionario -- gerenciar_dados
+funcionario -- chat_usuarios
+funcionario -- chatbot
+funcionario -- visualizar_eventos
+funcionario -- visualizar_nrs
+
+gestor -- manipular_certificados
+gestor -- receber_alertas
+gestor -- gerenciar_treinamento
+gestor -- gerenciar_dados
+gestor -- chat_usuarios
+gestor -- chatbot
+gestor -- manipular_eventos
+gestor -- manipular_nrs
+gestor -- importar_planilha
+gestor -- cadastrar_funcionarios
+gestor -- criar_workspace
+gestor -- criar_formularios
+
+' A ponta da linha HVb-tXCABOrx não está vinculada no JSON;
+' o destino Visualizar certificados foi confirmado na referência visual.
+manipular_certificados ..> visualizar_certificados : <<include>>
+manipular_eventos ..> visualizar_eventos : <<include>>
+manipular_nrs ..> visualizar_nrs : <<include>>
+
+@enduml
