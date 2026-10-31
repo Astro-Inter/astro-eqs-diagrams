@@ -2,7 +2,13 @@
 !include estilo.iuml
 title Astro — jornada do colaborador no mobile
 start
-:Concluir acesso autenticado\n(ver diagrama de acesso);
+:Informar e-mail; API identifica perfil e status;
+if (Conta PRE_CADASTRADA?) then (sim)
+  :Validar chave recebida por e-mail;\ndefinir senha Firebase e ativar conta;
+else (conta ativa)
+  :Autenticar com e-mail e senha no Firebase;
+endif
+:Confirmar token, conta ativa e acesso autorizado;
 :Carregar Home pessoal\nGET /home/collaborator;
 repeat
   :Escolher área na navegação;
@@ -11,7 +17,8 @@ repeat
     :Consultar eventos atribuídos\ne detalhes da participação;
     :Consultar prazo, modo de conclusão\ne exigência de evidência;
     if (Deseja enviar conclusão?) then (sim)
-      :Seguir fluxo de conclusão de evento\n(ver diagrama de eventos);
+      :API verifica modo COLABORADOR, prazo\ne até três evidências conforme exigência;
+      :Registrar conclusão PENDENTE\npara análise do gestor criador;
     endif
   case (Perfil e NRs)
     :Consultar GET /user/me;
@@ -28,7 +35,13 @@ repeat
     :Abrir detalhe e confirmar leitura;
   case (Conversas)
     :Escolher gestor ou Astrinho;
-    :Seguir fluxo de comunicação\n(ver diagrama de comunicação);
+    if (Conversa humana?) then (sim)
+      :Consultar contato / histórico autorizado;\nenviar por STOMP à API principal;
+      :Persistir mensagem no MongoDB\ne atualizar não lidas / entrega no Redis;
+    else (Astrinho)
+      :Abrir sessão própria ou iniciar nova;\nenviar mensagem à API de IA;
+      :Persistir interação e apresentar resposta;\nmanter UUID para continuar a sessão;
+    endif
   case (Conta)
     :Consultar conta e atualizar\ncampos / foto permitidos;
   endswitch
@@ -39,6 +52,8 @@ stop
 legend bottom
   Visão funcional do código consultado em 31/10/2026.
   Uma ação de menu é uma escolha, não uma execução paralela.
+  Conta desativada / autenticação inválida bloqueiam a área privada.
+  Sair do chat não dispara o salvamento: o histórico é persistido durante o uso.
   Integração disponível no código não comprova execução em produção.
 endlegend
 @enduml

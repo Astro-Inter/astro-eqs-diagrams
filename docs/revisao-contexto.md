@@ -73,14 +73,13 @@ Os SHAs abaixo são os snapshots da branch padrão obtidos durante a revisão. O
 
 ## Organização visual
 
+O escopo contém somente os três diagramas presentes no ZIP original, revisados conforme o projeto:
+
 - **Casos de uso:** responsabilidades e capacidades por papel. Generalização representa capacidades compartilhadas, não a aceitação do perfil COLABORADOR no web.
-- **Acesso:** primeiro acesso e login da pessoa operacional, separado da criação de empresa.
-- **Colaborador:** navegação pessoal, sem decisões de infraestrutura e sem duplicar os detalhes dos chats.
-- **Workspace:** cadastro inicial web, validação e compensação de identidade quando há falha.
-- **Gestor:** operação diária com ações exclusivas do responsável, separada do cadastro inicial para reduzir a largura do desenho.
-- **Eventos:** conclusão, evidência, validação e impacto na conformidade.
-- **Comunicação:** chat humano e IA separados por serviço e persistência.
-- **Arquitetura:** integrações principais do código. Linhas representam dependência/uso, não prova de execução ou ambiente publicado.
+- **Fluxo do funcionário:** acesso, navegação pessoal, eventos, perfil e NRs, alertas e comunicação. Os passos de chat humano e IA estão no próprio fluxo.
+- **Fluxo do gestor:** criação do workspace, acesso e operação diária, incluindo conclusão de eventos e ações exclusivas do responsável.
+
+O inventário dos 21 repositórios sustenta a revisão, sem criar diagramas adicionais de arquitetura, acesso, workspace, eventos ou comunicação.
 
 ## Verificação
 
