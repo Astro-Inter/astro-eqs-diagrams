@@ -1,0 +1,103 @@
+@startuml fluxo_funcionario
+title Fluxo do funcionário
+
+' Jira: https://luizacursino.atlassian.net/browse/SCRUM-558
+' Fonte: arquivo draw.io "Diagrama sem nome", página "Página-1".
+' Setas sobrepostas equivalentes foram consolidadas.
+skinparam shadowing false
+skinparam defaultFontName SansSerif
+skinparam activity {
+  BackgroundColor White
+  BorderColor #333333
+  StartColor #333333
+  EndColor #333333
+  BarColor #333333
+}
+
+partition "Autenticação" {
+  (*) --> if "Login" then
+    --> "Login" as login
+  else
+    -->[Não] "Cadastrar" as cadastrar
+    --> "Salvar no sistema" as salvar
+  endif
+
+  login --> "Verificando no Sistema" as verificar
+  salvar --> verificar
+  verificar --> if "Dados Válidos?" then
+    -->[Sim] "Home" as home
+  else
+    -->[Não] login
+  endif
+}
+
+partition "Calendário" {
+  home --> "Funcionário vai para a tela\nde calendário" as abrir_calendario
+  --> ===calendario_inicio===
+  --> "Tela Calendário" as tela_calendario
+  --> ===calendario_fim===
+
+  ===calendario_inicio=== --> "API do Calendário\npara carregar os eventos" as api_calendario
+  --> ===calendario_fim===
+  --> "Outras ações" as outras_acoes
+
+  outras_acoes --> (*)
+  outras_acoes --> "Clicou para saber mais sobre\num evento específico" as abrir_evento
+  --> ===evento_inicio===
+  --> "Informações do evento" as informacoes_evento
+  --> ===evento_fim===
+
+  ===evento_inicio=== --> "API do Calendário\npara carregar os eventos" as api_evento
+  --> ===evento_fim===
+  --> (*)
+}
+
+partition "Histórico de treinamentos" {
+  home --> "Ver Histórico de Treinamentos" as abrir_historico
+  --> ===historico_inicio===
+  --> "API do Histórico\npara puxar os certificados\ne cursos concluídos" as api_historico_1
+  --> ===historico_fim===
+
+  ' O original possui duas atividades com o mesmo texto neste fluxo.
+  ===historico_inicio=== --> "API do Histórico\npara puxar os certificados\ne cursos concluídos" as api_historico_2
+  --> ===historico_fim===
+  --> (*)
+}
+
+partition "NRs" {
+  home --> "Ver a tela das NRs\nque tem que cumprir" as abrir_nrs
+  --> ===nrs_inicio===
+  --> "Tela das NRs" as tela_nrs
+  --> ===nrs_fim===
+
+  ===nrs_inicio=== --> "API do Histórico\npara puxar os certificados\ne cursos concluídos" as api_historico_nrs
+  --> ===nrs_fim===
+  --> (*)
+}
+
+partition "Chatbot" {
+  home --> "Falar com Chatbot" as abrir_chatbot
+  --> ===chatbot_inicio===
+  --> "Tela de Conversa" as tela_chatbot
+  --> ===chatbot_fim===
+
+  ===chatbot_inicio=== --> "API do Chatbot\npara iniciar conversa" as api_chatbot
+  --> ===chatbot_fim===
+  --> (*)
+
+  ' Conexão explícita no original (Rv5qtU_8SYYeGgRhQWz2-106).
+  tela_chatbot --> api_historico_nrs
+}
+
+partition "Chat com o gestor" {
+  home --> "Chat com o Gestor" as abrir_chat_gestor
+  --> ===gestor_inicio===
+  --> "Tela de Conversa" as tela_chat_gestor
+  --> ===gestor_fim===
+
+  ===gestor_inicio=== --> "API de chat com histórico\nde mensagens com o Gestor" as api_chat_gestor
+  --> ===gestor_fim===
+  --> (*)
+}
+
+@enduml
