@@ -25,7 +25,7 @@ rectangle "Astro" {
   usecase "Gerenciar eventos\ne formulários" as operacao
   usecase "Consultar indicadores" as indicadores
   usecase "Administrar workspace" as workspace
-  usecase "Manter catálogo de NRs" as catalogo
+  usecase "Gerenciar catálogo de NRs" as catalogo
 }
 responsavel -- criar
 colaborador -- acesso
