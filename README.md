@@ -4,7 +4,7 @@ Diagramas PlantUML revisados com os repositórios da [Astro-Inter](https://githu
 
 A revisão de **31/10/2026** substitui a transcrição literal das imagens do ZIP por uma visão baseada no código e nos contratos consultados. O escopo visual mantém somente os três diagramas do ZIP: casos de uso, fluxo do funcionário e fluxo do gestor. Acesso, criação do workspace, eventos e comunicação aparecem dentro desses fluxos, sem diagramas adicionais. Foram inventariados **21 repositórios**, com aprofundamento nos fluxos pertinentes. O [relatório de revisão](docs/revisao-contexto.md) reúne correções, evidências fixadas por commit e divergências entre memorial e implementação.
 
-Os diagramas representam o comportamento descrito no código. Eles não confirmam deploy, ativação de workers ou testes ponta a ponta. A versão que transcreve o ZIP permanece no histórico Git, no commit `d0a4543`.
+Os desenhos são uma visão geral: agrupam funções e omitem validações, permissões por canal e etapas secundárias. As opções dentro de uma mesma caixa são alternativas de uso, sem ordem obrigatória. Os diagramas representam o comportamento descrito no código. Eles não confirmam deploy, ativação de workers ou testes ponta a ponta. A versão que transcreve o ZIP permanece no histórico Git, no commit `d0a4543`.
 
 ## Navegação
 
@@ -62,14 +62,10 @@ java -jar plantuml.jar -charset UTF-8 -Playout=smetana -tsvg -o rendered "diagra
 
 O comando usa Java e PlantUML com Smetana, sem instalação separada de Graphviz. O estilo é local, sem includes remotos. Para manter fontes e imagens coerentes, inclua ambos no mesmo commit.
 
-## Principais correções
+## Nível de detalhe
 
-- Separação de Colaborador, Gestor, Gestor do Workspace e ADMIN, com limites por canal.
-- Primeiro acesso por chave separado de login Firebase e criação de workspace.
-- Ações de navegação como escolhas, com retorno à Home; sem paralelismo artificial.
-- Eventos com turmas, evidências e validação pelo gestor criador.
-- Certificados tratados como possíveis evidências, sem uma relação obrigatória de consulta para alteração.
-- Chat humano e IA com persistência durante a interação; sair da tela não dispara o salvamento.
-- Integrações pertinentes descritas nos próprios fluxos, com seus limites documentados.
+Os três diagramas mostram apenas acesso, funções principais e saída. Os losangos representam perguntas de **sim** ou **não**. Não há endpoints, anotações de rodapé ou setas de retorno para cada opção de menu.
+
+As regras de eventos, permissões, primeiro acesso e integrações estão no [relatório de revisão](docs/revisao-contexto.md).
 
 Consulte as [divergências que exigem decisão do projeto](docs/revisao-contexto.md#divergências-que-exigem-decisão-do-projeto) antes de usar estes diagramas como especificação de novas regras de negócio.
