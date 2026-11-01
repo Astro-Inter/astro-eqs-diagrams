@@ -8,7 +8,6 @@ skinparam usecaseBackgroundColor #F5F0FC
 skinparam usecaseBorderColor #7952A5
 skinparam actorBorderColor #645679
 
-actor "Visitante" as visitante
 actor "Colaborador" as colaborador
 actor "Gestor" as gestor
 actor "Responsável pelo\nworkspace" as responsavel
@@ -28,8 +27,8 @@ rectangle "Astro" {
   usecase "Administrar workspace" as workspace
   usecase "Manter catálogo de NRs" as catalogo
 }
-visitante -- criar
-visitante -- acesso
+responsavel -- criar
+colaborador -- acesso
 colaborador -- perfil
 colaborador -- participar
 colaborador -- conversar
