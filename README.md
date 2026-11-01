@@ -6,6 +6,8 @@ O repositório mantém somente os três diagramas do ZIP: casos de uso, fluxo do
 
 O [relatório de revisão](docs/revisao-contexto.md) registra separadamente a análise dos 21 repositórios da Astro-Inter e as diferenças entre a documentação original e o código consultado.
 
+No caso de uso, `<<include>>` representa a validação da chave como parte obrigatória da criação do workspace. `<<extend>>` representa a ativação da conta como complemento do acesso, apenas no primeiro acesso.
+
 ## Navegação
 
 | Diagrama | O que mostra | Fonte editável |

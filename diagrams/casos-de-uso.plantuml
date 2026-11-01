@@ -17,7 +17,9 @@ gestor <|-- responsavel
 
 rectangle "Astro" {
   usecase "Criar workspace" as criar
-  usecase "Acessar / ativar conta" as acesso
+  usecase "Validar chave\ndo workspace" as validar_chave
+  usecase "Acessar conta" as acesso
+  usecase "Ativar conta\n(primeiro acesso)" as ativar
   usecase "Consultar perfil,\nNRs e alertas" as perfil
   usecase "Participar de eventos" as participar
   usecase "Usar chat e Astrinho" as conversar
@@ -29,6 +31,7 @@ rectangle "Astro" {
 }
 responsavel -- criar
 colaborador -- acesso
+colaborador -- ativar
 colaborador -- perfil
 colaborador -- participar
 colaborador -- conversar
@@ -37,4 +40,7 @@ gestor -- operacao
 gestor -- indicadores
 responsavel -- workspace
 admin -- catalogo
+
+criar .> validar_chave : <<include>>
+ativar .> acesso : <<extend>>
 @enduml
