@@ -5,6 +5,10 @@ skinparam defaultFontName SansSerif
 skinparam defaultFontSize 13
 skinparam shadowing false
 skinparam ArrowColor #645679
+skinparam ArrowFontColor #292234
+skinparam ArrowFontStyle bold
+skinparam nodesep 45
+skinparam ranksep 65
 skinparam activity {
   BackgroundColor #F5F0FC
   BorderColor #7952A5

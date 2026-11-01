@@ -59,9 +59,4 @@ responsavel -- importar
 responsavel -- gestores
 admin -- catalogo
 
-legend bottom
-  O gestor mantém as funções pessoais do colaborador na mesma conta.
-  Colaborador conversa com gestores; gestores também conversam entre si.
-  Só o criador do evento valida conclusões; só o destinatário responde ao formulário.
-endlegend
 @enduml

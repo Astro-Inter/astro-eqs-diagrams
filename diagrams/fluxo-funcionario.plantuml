@@ -3,34 +3,29 @@
 title Astro — fluxo do funcionário
 
 (*) --> "Informar e-mail" as identificar
---> if "Primeiro acesso?" then
-  -->[sim] "Validar chave e criar senha" as ativar
+--> if "<back:white>Primeiro acesso?   </back>" then
+  -->[<back:white>sim</back>] "Validar chave e criar senha" as ativar
   --> "Abrir tela inicial" as menu
 else
-  -->[não] "Entrar com e-mail e senha" as entrar
+  -->[<back:white>não</back>] "Entrar com e-mail e senha" as entrar
   --> menu
 endif
 
-menu -->[Eventos] "Consultar meus eventos" as eventos
---> if "Enviar conclusão?" then
-  -->[sim] "Enviar conclusão e evidências\npara análise do gestor" as concluir
+menu -->[<back:white>Eventos</back>] "Consultar meus eventos" as eventos
+--> if "<back:white>Enviar conclusão?   </back>" then
+  -->[<back:white>sim</back>] "Enviar conclusão e evidências\npara análise do gestor" as concluir
   --> menu
 else
-  -->[não] menu
+  -->[<back:white>não</back>] menu
 endif
 
-menu -->[Perfil] "Consultar dados, NRs e validades" as perfil
+menu -->[<back:white>Perfil</back>] "Consultar dados, NRs e validades" as perfil
 --> menu
-menu -->[Alertas] "Consultar alertas" as alertas
+menu -->[<back:white>Alertas</back>] "Consultar alertas" as alertas
 --> menu
-menu -->[Conversas] "Conversar com gestor ou Astrinho" as conversas
+menu -->[<back:white>Conversas</back>] "Conversar com gestor ou Astrinho" as conversas
 --> menu
-menu -->[Sair] "Sair da conta" as sair
+menu -->[<back:white>Sair</back>] "Sair da conta" as sair
 --> (*)
 
-legend bottom
-  Conta inativa ou acesso inválido impedem a entrada.
-  O envio de conclusão respeita o prazo e as regras do evento.
-  O histórico das conversas é salvo durante o uso.
-endlegend
 @enduml

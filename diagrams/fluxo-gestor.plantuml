@@ -2,39 +2,34 @@
 !include estilo.iuml
 title Astro — fluxo do gestor
 
-(*) --> if "Criar workspace?" then
-  -->[sim] "Validar chave da empresa" as chave
+(*) --> if "<back:white>Criar workspace?   </back>" then
+  -->[<back:white>sim</back>] "Validar chave da empresa" as chave
   --> "Cadastrar empresa, unidades\ne colaboradores por planilha" as criar
   --> "Entrar com e-mail e senha" as entrar
 else
-  -->[não] entrar
+  -->[<back:white>não</back>] entrar
 endif
 entrar --> "Abrir tela inicial" as menu
 
-menu -->[Colaboradores] "Pré-cadastrar colaboradores\ne enviar chave de primeiro acesso" as pessoas
+menu -->[<back:white>Colaboradores</back>] "Pré-cadastrar colaboradores\ne enviar chave de primeiro acesso" as pessoas
 --> menu
-menu -->[Cargos e NRs] "Gerenciar cargos, NRs\ne conformidades" as conformidades
+menu -->[<back:white>Cargos e NRs</back>] "Gerenciar cargos, NRs\ne conformidades" as conformidades
 --> menu
-menu -->[Eventos] "Gerenciar eventos e\nvalidar conclusões" as eventos
+menu -->[<back:white>Eventos</back>] "Gerenciar eventos e\nvalidar conclusões" as eventos
 --> menu
-menu -->[Formulários] "Criar, analisar ou responder\nformulários recebidos" as formularios
+menu -->[<back:white>Formulários</back>] "Criar, analisar ou responder\nformulários recebidos" as formularios
 --> menu
-menu -->[Consultas] "Consultar indicadores, alertas\ne conversas" as consultas
+menu -->[<back:white>Consultas</back>] "Consultar indicadores, alertas\ne conversas" as consultas
 --> menu
 
-menu -->[Workspace] if "É o responsável?" then
-  -->[sim] "Administrar empresa, unidades,\nplanilhas e gestores" as administrar
+menu -->[<back:white>Workspace</back>] if "<back:white>Responsável?   </back>" then
+  -->[<back:white>sim</back>] "Administrar empresa, unidades,\nplanilhas e gestores" as administrar
   --> menu
 else
-  -->[não] "Manter acesso às funções de gestão" as restringir
+  -->[<back:white>não</back>] "Manter acesso às funções de gestão" as restringir
   --> menu
 endif
-menu -->[Sair] "Sair da conta" as sair
+menu -->[<back:white>Sair</back>] "Sair da conta" as sair
 --> (*)
 
-legend bottom
-  O gestor também tem as funções pessoais do colaborador.
-  Cada gestor valida apenas as conclusões dos eventos que criou.
-  Cada ação respeita as permissões e o canal web ou aplicativo.
-endlegend
 @enduml
