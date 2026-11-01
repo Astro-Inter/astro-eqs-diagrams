@@ -12,8 +12,8 @@ actor "Colaborador" as colaborador
 actor "Gestor" as gestor
 actor "Responsável pelo\nworkspace" as responsavel
 actor "Administrador\nAstro" as admin
-colaborador <|-- gestor
-gestor <|-- responsavel
+colaborador <|-left- gestor
+gestor <|-left- responsavel
 
 rectangle "Astro" {
   usecase "Criar workspace" as criar
