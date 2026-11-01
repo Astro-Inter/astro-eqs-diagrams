@@ -1,20 +1,58 @@
 @startuml fluxo_gestor
+title Fluxo do gestor
+
+' Jira: https://luizacursino.atlassian.net/browse/SCRUM-558
+' Fonte: Entrega Astro/Diagramas/Fluxo Gestor - Diagrama de atividades.jpg
+' no arquivo entrega-astro.zip.
 !include estilo.iuml
-title Astro — fluxo do gestor
+left to right direction
+skinparam packageBorderColor #D9CCE8
+skinparam packageBackgroundColor #FDFBFF
+skinparam nodesep 30
+skinparam ranksep 45
 
-(*) --> if "<back:white>Criar workspace?   </back>" then
-  -->[<back:white>sim</back>] "Validar chave e cadastrar empresa" as criar
-  --> "Entrar no Astro" as entrar
-else
-  -->[<back:white>não</back>] entrar
-endif
+partition "Acesso ao workspace" {
+  (*) --> "Landing Page" as landing_page
+  --> if "\n<back:white>Já tem cadastro?   </back>" then
+    -->[<back:white>Sim</back>] "Workspace" as workspace
+  else
+    -->[<back:white>Não</back>] "Gera Chave de acesso" as gerar_chave
+    --> "Cria Workspace da empresa" as criar_workspace
+    --> workspace
+  endif
+}
 
-entrar --> "Escolher o que fazer:\n• Gerenciar equipe e conformidades\n• Gerenciar eventos e formulários\n• Consultar indicadores e conversas" as opcoes
---> if "<back:white>É responsável pelo workspace?   </back>" then
-  -->[<back:white>sim</back>] "Administrar empresa e gestores,\nquando necessário" as administrar
-  --> "Sair da conta" as sair
-else
-  -->[<back:white>não</back>] sair
-endif
-sair --> (*)
+partition "Configurações" {
+  workspace --> "Configuração do workspace" as configurar_workspace
+  --> (*)
+
+  workspace --> "Configurações de NRs\nda empresa" as configurar_nrs
+  --> (*)
+
+  workspace --> "Criação de Unidades" as criar_unidades
+  --> "Configuração da unidade" as configurar_unidade
+  --> (*)
+}
+
+partition "Cadastro de funcionários" {
+  workspace --> "Cadastrar funcionários" as cadastrar_funcionarios
+  --> "Faz cadastro manual" as cadastro_manual
+  --> if "\n<back:white>Já existe unidade?   </back>" then
+    -->[<back:white>Sim</back>] "Cria cargos de funcionários" as criar_cargos
+    --> "Sugere NRs para cargo criado" as sugerir_nrs
+    --> "Configura NRs do cargo" as configurar_nrs_cargo
+    --> "Cria perfis de funcionários" as criar_perfis
+    --> "Gera chave de acesso para contas\ndos funcionários criados" as gerar_chaves_funcionarios
+    --> (*)
+  else
+    -->[<back:white>Não</back>] criar_unidades
+  endif
+
+  ' O rótulo "Exporta planilha" é o que consta na imagem de origem.
+  cadastrar_funcionarios --> "Exporta planilha de funcionários" as exportar_planilha
+  --> "Cria cargos e perfis de funcionário\npor meio do excel" as criar_perfis_excel
+  --> "Configuração posterior de NRs\npor cargo" as configurar_nrs_excel
+  --> gerar_chaves_funcionarios
+}
+
 @enduml

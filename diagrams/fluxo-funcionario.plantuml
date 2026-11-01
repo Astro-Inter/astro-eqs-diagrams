@@ -1,21 +1,115 @@
 @startuml fluxo_funcionario
+title Fluxo do funcionário
+
+' Jira: https://luizacursino.atlassian.net/browse/SCRUM-558
+' Fonte: Entrega Astro/Diagramas/Fluxo Funcionario - Diagrama de  atividades.jpg
+' no arquivo entrega-astro.zip. Substitui a versão anterior do draw.io.
 !include estilo.iuml
-title Astro — fluxo do funcionário
+left to right direction
+skinparam packageBorderColor #D9CCE8
+skinparam packageBackgroundColor #FDFBFF
+skinparam nodesep 30
+skinparam ranksep 45
 
-(*) --> "Informar e-mail" as email
---> if "<back:white>Primeiro acesso?   </back>" then
-  -->[<back:white>sim</back>] "Ativar conta com chave e senha" as ativar
-  --> "Entrar no Astro" as entrar
-else
-  -->[<back:white>não</back>] entrar
-endif
+partition "Autenticação" {
+  (*) --> if "\n<back:white>Já tem cadastro?   </back>" then
+    -->[<back:white>Sim</back>] "Login" as login
+  else
+    -->[<back:white>Não</back>] "Cadastrar" as cadastrar
+    --> "Salvar no sistema" as salvar
+  endif
 
-entrar --> "Escolher o que fazer:\n• Consultar perfil, NRs e alertas\n• Acompanhar eventos\n• Conversar com gestor ou Astrinho" as opcoes
---> if "<back:white>Enviar conclusão de evento?   </back>" then
-  -->[<back:white>sim</back>] "Enviar conclusão para o gestor" as concluir
-  --> "Sair da conta" as sair
-else
-  -->[<back:white>não</back>] sair
-endif
-sair --> (*)
+  login --> "Verificando no Sistema" as verificar
+  salvar --> verificar
+  verificar --> if "\n<back:white>Dados Válidos?   </back>" then
+    -->[<back:white>Sim</back>] "Home" as home
+  else
+    -->[<back:white>Não</back>] "Volta para Login" as voltar_login
+  endif
+}
+
+partition "Calendário" {
+  home --> "Funcionário vai para a tela\nde calendário" as abrir_calendario
+  --> ===calendario_inicio===
+  --> "Tela Calendário" as tela_calendario
+  --> ===calendario_fim===
+
+  ===calendario_inicio=== --> "API do Calendário\npara carregar os eventos" as api_calendario
+  --> ===calendario_fim===
+  --> "Outras ações" as outras_acoes
+
+  outras_acoes --> (*)
+  outras_acoes --> "Voltar para Home" as home_calendario
+  outras_acoes --> "Clicou para saber mais sobre\num evento específico" as abrir_evento
+  --> ===evento_inicio===
+  --> "Informações do evento" as informacoes_evento
+  --> ===evento_fim===
+
+  ===evento_inicio=== --> "API do Calendário\npara carregar os eventos" as api_evento
+  --> ===evento_fim===
+  --> "Voltar para Calendário" as voltar_calendario
+}
+
+partition "Histórico de treinamentos" {
+  home --> "Ver Histórico de Treinamentos" as abrir_historico
+  --> ===historico_inicio===
+  --> "API do Histórico\npara puxar os certificados\ne cursos concluídos" as api_historico
+  --> ===historico_fim===
+  --> "Outras ações" as acoes_historico
+  --> (*)
+  acoes_historico --> "Voltar para Home" as home_historico
+}
+
+partition "NRs" {
+  home --> "Ver a tela das NRs\nque tem que cumprir" as abrir_nrs
+  --> ===nrs_inicio===
+  --> "Tela das NRs" as tela_nrs
+  --> ===nrs_fim===
+
+  ===nrs_inicio=== --> "API do Histórico\npara puxar os certificados\ne cursos concluídos" as api_historico_nrs
+  --> ===nrs_fim===
+  --> "Outras ações" as acoes_nrs
+  --> (*)
+  acoes_nrs --> "Voltar para Home" as home_nrs
+}
+
+partition "Chatbot" {
+  home --> "Falar com Chatbot" as abrir_chatbot
+  --> ===chatbot_inicio===
+  --> "Tela de Conversa" as tela_chatbot
+  --> ===chatbot_fim===
+
+  ===chatbot_inicio=== --> "API do Chatbot\npara iniciar conversa" as api_chatbot
+  --> ===chatbot_fim===
+  --> if "\n<back:white>Continuou conversa?   </back>" then
+    -->[<back:white>Sim</back>] "Continua na tela\nde conversa" as continuar_chatbot
+  else
+    -->[<back:white>Não</back>] "Salva a conversa\nno banco" as salvar_chatbot
+    --> "Outras ações" as acoes_chatbot
+    --> (*)
+  endif
+  acoes_chatbot --> "Voltar para Home" as home_chatbot
+
+  ' A imagem mantém a conexão da tela do chatbot com a API do Histórico das NRs.
+  tela_chatbot --> api_historico_nrs
+}
+
+partition "Chat com o gestor" {
+  ' Sem seta de entrada na imagem do ZIP.
+  "Chat com o Gestor" --> ===gestor_inicio===
+  --> "Tela de Conversa" as tela_chat_gestor
+  --> ===gestor_fim===
+
+  ===gestor_inicio=== --> "API de chat com histórico\nde mensagens com o Gestor" as api_chat_gestor
+  --> ===gestor_fim===
+  --> if "\n<back:white>Continuou conversa?   </back>" then
+    -->[<back:white>Sim</back>] "Continua na tela\nde conversa" as continuar_chat_gestor
+  else
+    -->[<back:white>Não</back>] "Salva a conversa\nno banco" as salvar_chat_gestor
+    --> "Outras ações" as acoes_chat_gestor
+    --> (*)
+  endif
+  acoes_chat_gestor --> "Voltar para Home" as home_chat_gestor
+}
+
 @enduml

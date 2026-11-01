@@ -1,18 +1,18 @@
 # Diagramas do Astro
 
-Diagramas PlantUML revisados com os repositórios da [Astro-Inter](https://github.com/orgs/Astro-Inter/repositories), na tarefa [SCRUM-558](https://luizacursino.atlassian.net/browse/SCRUM-558).
+Diagramas PlantUML do Astro, na tarefa [SCRUM-558](https://luizacursino.atlassian.net/browse/SCRUM-558).
 
-A revisão de **31/10/2026** substitui a transcrição literal das imagens do ZIP por uma visão baseada no código e nos contratos consultados. O escopo visual mantém somente os três diagramas do ZIP: casos de uso, fluxo do funcionário e fluxo do gestor. Acesso, criação do workspace, eventos e comunicação aparecem dentro desses fluxos, sem diagramas adicionais. Foram inventariados **21 repositórios**, com aprofundamento nos fluxos pertinentes. O [relatório de revisão](docs/revisao-contexto.md) reúne correções, evidências fixadas por commit e divergências entre memorial e implementação.
+O repositório mantém somente os três diagramas do ZIP: casos de uso, fluxo do funcionário e fluxo do gestor. O caso de uso mantém a versão simplificada e os papéis ajustados. Os dois fluxos recuperam as etapas e conexões das imagens originais do ZIP, com apresentação padronizada em PlantUML.
 
-Os desenhos são uma visão geral: agrupam funções e omitem validações, permissões por canal e etapas secundárias. As opções dentro de uma mesma caixa são alternativas de uso, sem ordem obrigatória. Os diagramas representam o comportamento descrito no código. Eles não confirmam deploy, ativação de workers ou testes ponta a ponta. A versão que transcreve o ZIP permanece no histórico Git, no commit `d0a4543`.
+O [relatório de revisão](docs/revisao-contexto.md) registra separadamente a análise dos 21 repositórios da Astro-Inter e as diferenças entre a documentação original e o código consultado.
 
 ## Navegação
 
 | Diagrama | O que mostra | Fonte editável |
 | --- | --- | --- |
 | [Casos de uso e papéis](diagrams/rendered/casos_de_uso.svg) | Responsabilidades de Colaborador, Gestor, Gestor do Workspace e ADMIN. | [casos-de-uso.plantuml](diagrams/casos-de-uso.plantuml) |
-| [Jornada do colaborador](diagrams/rendered/fluxo_funcionario.svg) | Eventos, perfil e NRs, alertas, conta e comunicação no mobile. | [fluxo-funcionario.plantuml](diagrams/fluxo-funcionario.plantuml) |
-| [Jornada do gestor](diagrams/rendered/fluxo_gestor.svg) | Criação da empresa, operação cotidiana e ações exclusivas do responsável. | [fluxo-gestor.plantuml](diagrams/fluxo-gestor.plantuml) |
+| [Jornada do colaborador](diagrams/rendered/fluxo_funcionario.svg) | Login, cadastro, calendário, histórico de treinamentos, NRs e conversas. | [fluxo-funcionario.plantuml](diagrams/fluxo-funcionario.plantuml) |
+| [Jornada do gestor](diagrams/rendered/fluxo_gestor.svg) | Acesso ao workspace, configurações, unidades e cadastro de funcionários. | [fluxo-gestor.plantuml](diagrams/fluxo-gestor.plantuml) |
 
 ## Visualização
 
@@ -32,7 +32,7 @@ Responsabilidades de Colaborador, Gestor, Gestor do Workspace e ADMIN.
 <details>
 <summary>Jornada do colaborador</summary>
 
-Eventos, perfil e NRs, alertas, conta e comunicação no mobile.
+Login, cadastro, calendário, histórico de treinamentos, NRs e conversas.
 
 [Abrir imagem em tamanho completo](diagrams/rendered/fluxo_funcionario.svg) · [Editar PlantUML](diagrams/fluxo-funcionario.plantuml)
 
@@ -43,7 +43,7 @@ Eventos, perfil e NRs, alertas, conta e comunicação no mobile.
 <details>
 <summary>Jornada do gestor</summary>
 
-Criação da empresa, operação cotidiana e ações exclusivas do responsável.
+Acesso ao workspace, configurações, unidades e cadastro de funcionários.
 
 [Abrir imagem em tamanho completo](diagrams/rendered/fluxo_gestor.svg) · [Editar PlantUML](diagrams/fluxo-gestor.plantuml)
 
@@ -62,10 +62,8 @@ java -jar plantuml.jar -charset UTF-8 -Playout=smetana -tsvg -o rendered "diagra
 
 O comando usa Java e PlantUML com Smetana, sem instalação separada de Graphviz. O estilo é local, sem includes remotos. Para manter fontes e imagens coerentes, inclua ambos no mesmo commit.
 
-## Nível de detalhe
+## Referência dos fluxos
 
-Os três diagramas mostram apenas acesso, funções principais e saída. Os losangos representam perguntas de **sim** ou **não**. Não há endpoints, anotações de rodapé ou setas de retorno para cada opção de menu.
+Os fluxos do funcionário e do gestor seguem as imagens de atividades do arquivo entrega-astro.zip. As etapas, ramificações e integrações descritas nessas imagens foram recuperadas; os ajustes visuais abrangem cores, organização por área, espaçamento e destaque dos rótulos. Os losangos são usados apenas para perguntas de **sim** ou **não**, sem anotações de rodapé.
 
-As regras de eventos, permissões, primeiro acesso e integrações estão no [relatório de revisão](docs/revisao-contexto.md).
-
-Consulte as [divergências que exigem decisão do projeto](docs/revisao-contexto.md#divergências-que-exigem-decisão-do-projeto) antes de usar estes diagramas como especificação de novas regras de negócio.
+O [relatório de revisão](docs/revisao-contexto.md) continua disponível para consultar as diferenças em relação ao código do projeto.
