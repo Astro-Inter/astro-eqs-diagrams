@@ -1,0 +1,192 @@
+@startuml fluxo_gestor_mobile
+!include estilo.iuml
+title Fluxo do Gestor — Mobile ASTRO
+skinparam ConditionStyle InsideDiamond
+skinparam ConditionEndStyle hline
+skinparam Padding 10
+
+start
+:Entrar na conta;
+
+if (Acesso válido?) then (Sim)
+  :Exibir seleção de modo;
+else (Não)
+  :Exibir erro de acesso;
+  stop
+endif
+
+if (Entrar como Gestor?) then (Sim)
+  :Home do Gestor;
+else (Não)
+  :Acessar fluxo do Colaborador;
+  stop
+endif
+
+split
+  :Abrir validações pendentes;
+  :Consultar conclusões\naguardando análise;
+
+  if (Existem validações pendentes?) then (Sim)
+    :Selecionar conclusão pendente;
+    :Consultar detalhes e evidências;
+
+    if (Aprovar conclusão?) then (Sim)
+      :Aprovar conclusão;
+      :Exibir confirmação;
+      stop
+    else (Não)
+      :Rejeitar conclusão;
+      :Exibir confirmação;
+      stop
+    endif
+
+  else (Não)
+    :Exibir ausência de validações;
+    stop
+  endif
+
+split again
+  :Abrir Eventos;
+  :Consultar Eventos sob\nsua responsabilidade;
+
+  if (Abrir detalhes?) then (Sim)
+    :Consultar detalhes\ne participantes;
+
+    if (Registrar conclusão\nde Colaborador?) then (Sim)
+      :Selecionar participante;
+
+      if (Modo de conclusão\nGESTOR?) then (Sim)
+
+        if (Colaborador já\nconcluiu o Evento?) then (Sim)
+          :Registrar conclusão\npara o Colaborador;
+          :Exibir confirmação;
+          stop
+        else (Não)
+          stop
+        endif
+
+      else (Não)
+
+        if (Colaborador já\nconcluiu o Evento?) then (Sim)
+          :Registrar validação\nda conclusão;
+          :Exibir confirmação;
+          stop
+        else (Não)
+          stop
+        endif
+
+      endif
+
+    else (Não)
+      stop
+    endif
+
+  else (Não)
+    stop
+  endif
+
+split again
+  :Abrir Formulários pendentes;
+  :Consultar Formulários disponíveis;
+
+  if (Abrir Formulário?) then (Sim)
+    :Consultar informações\ndo Formulário;
+    :Iniciar preenchimento;
+
+    if (Localização ativada?) then (Sim)
+    else (Não)
+      :Solicitar ativação\nda localização;
+    endif
+
+    if (Localização disponível?) then (Sim)
+      :Preencher Formulário;
+
+      if (Enviar respostas?) then (Sim)
+        :Validar dados necessários;
+        :Enviar respostas\ncom localização;
+        :Exibir confirmação;
+        stop
+      else (Não)
+        stop
+      endif
+
+    else (Não)
+      :Informar que a localização\né obrigatória;
+      stop
+    endif
+
+  else (Não)
+    stop
+  endif
+
+split again
+  :Abrir Colaboradores;
+  :Consultar lista de Colaboradores;
+
+  if (Selecionar Colaborador?) then (Sim)
+    :Consultar dados do Colaborador;
+
+    split
+      if (Consultar pendências?) then (Sim)
+        :Visualizar pendências;
+        stop
+      else (Não)
+        stop
+      endif
+
+    split again
+      if (Abrir chat?) then (Sim)
+        :Abrir conversa com\no Colaborador;
+        stop
+      else (Não)
+        stop
+      endif
+    end split
+
+  else (Não)
+    stop
+  endif
+
+split again
+  :Abrir Conversas;
+  :Consultar conversas disponíveis;
+  :Selecionar Colaborador;
+  :Consultar histórico da conversa;
+
+  if (Enviar mensagem?) then (Sim)
+    :Enviar mensagem ao Colaborador;
+    stop
+  else (Não)
+    stop
+  endif
+
+split again
+  :Abrir Chatbot;
+
+  if (Enviar pergunta?) then (Sim)
+    :Enviar pergunta ao Chatbot;
+    :Receber resposta;
+    stop
+  else (Não)
+    stop
+  endif
+
+split again
+  :Consultar indicadores na Home;
+  :Visualizar validações pendentes,\nEventos em andamento e\nColaboradores com pendências;
+  stop
+
+split again
+  :Abrir Perfil;
+  :Consultar dados da conta;
+
+  if (Alternar para modo\nColaborador?) then (Sim)
+    :Selecionar modo Colaborador;
+    :Acessar Home do Colaborador;
+    stop
+  else (Não)
+    stop
+  endif
+
+end split
+@enduml

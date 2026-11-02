@@ -1,84 +1,85 @@
 @startuml casos_de_uso
 !include estilo.iuml
-title Astro — papéis e casos de uso
+title Astro — Casos de uso
 left to right direction
 skinparam nodesep 20
-skinparam ranksep 55
+skinparam ranksep 45
 skinparam usecaseBackgroundColor #F5F0FC
 skinparam usecaseBorderColor #7952A5
 skinparam actorBorderColor #645679
 
-actor "Visitante" as visitante
 actor "Colaborador" as colaborador
 actor "Gestor" as gestor
 actor "Gestor do\nWorkspace" as responsavel
-actor "Administrador\nAstro" as admin
-colaborador <|-- gestor
-gestor <|-- responsavel
+actor "Administrador\nASTRO" as admin
+gestor -left-|> colaborador
+responsavel -left-|> gestor
 
 rectangle "Astro" {
-  package "Acesso e uso pessoal" {
-    usecase "Criar workspace\nno web" as criar_workspace
-    usecase "Ativar conta pré-cadastrada\nno mobile" as ativar
-    usecase "Entrar / recuperar senha" as acesso
-    usecase "Consultar perfil, NRs\ne validades próprias" as perfil
-    usecase "Consultar eventos atribuídos\ne enviar conclusão / evidências" as participar
-    usecase "Consultar alertas" as alertas
-    usecase "Conversar com gestores" as chat
-    usecase "Conversar com o Astrinho\ne retomar sessões próprias" as ia
-  }
-  package "Gestão operacional" {
-    usecase "Consultar e pré-cadastrar\ncolaboradores" as pessoas
-    usecase "Gerenciar cargos e\nsuas NRs" as cargos
-    usecase "Consultar unidades e\nassociar NRs contextuais" as unidades
-    usecase "Registrar / importar\nconformidades e validades" as conformidades
-    usecase "Criar e acompanhar eventos,\nturmas e participantes" as eventos
-    usecase "Atribuir ou validar conclusão\ndos eventos que criou" as validar
-    usecase "Criar e analisar formulários" as formularios
-    usecase "Responder formulários\nrecebidos como destinatário" as responder
-    usecase "Consultar dashboards\ndo workspace" as bi
-    usecase "Conversar com colaboradores\ne outros gestores" as chat_gestao
-  }
-  package "Responsabilidade do workspace" {
-    usecase "Editar empresa e\ncriar / editar unidades" as empresa
-    usecase "Sincronizar colaboradores\npor planilha do workspace" as importar
-    usecase "Promover / administrar gestores" as gestores
-    usecase "Transferir responsabilidade\na outro gestor ativo" as transferir
-  }
-  package "Catálogo global" {
-    usecase "Revisar e aprovar NRs\npendentes / editar catálogo" as catalogo
-  }
+  usecase "Criar workspace" as criar
+  usecase "Validar chave\ndo workspace" as validar_chave
+  usecase "Acessar conta" as acesso
+  usecase "Ativar conta\n(primeiro acesso)" as ativar
+  usecase "Consultar perfil" as perfil
+  usecase "Consultar conformidades" as consultar_conformidades
+  usecase "Consultar notificações" as notificacoes
+  usecase "Participar de eventos" as participar
+  usecase "Registrar conclusão\nde evento" as concluir
+  usecase "Anexar evidências" as evidencias
+  usecase "Reenviar conclusão\nrejeitada" as reenviar
+  usecase "Utilizar chat" as chat
+  usecase "Consultar ChatBot" as chatbot
+  usecase "Gerenciar colaboradores" as equipe
+  usecase "Importar colaboradores" as importar_colaboradores
+  usecase "Gerenciar eventos" as eventos
+  usecase "Gerenciar turmas" as turmas
+  usecase "Validar ou rejeitar\nconclusões" as validar_conclusoes
+  usecase "Registrar conclusão\nde colaborador" as concluir_colaborador
+  usecase "Gerenciar formulários" as formularios
+  usecase "Responder formulários" as responder_formularios
+  usecase "Gerenciar cargos\ne unidades" as estrutura
+  usecase "Gerenciar NRs por\ncargo e unidade" as nrs_estrutura
+  usecase "Registrar conformidade\nmanualmente" as conformidade_manual
+  usecase "Importar conformidades" as importar_conformidades
+  usecase "Analisar sugestões\nde NRs por IA" as sugestoes
+  usecase "Consultar indicadores" as indicadores
+  usecase "Gerenciar gestores" as gestores
+  usecase "Transferir responsabilidade\npelo workspace" as transferir
+  usecase "Configurar workspace" as workspace
+  usecase "Gerenciar catálogo de NRs" as catalogo
+  usecase "Analisar e decidir transferências\nexcepcionais de workspace" as transferencia_excepcional
 }
-visitante -- criar_workspace
-visitante -- ativar
-visitante -- acesso
+responsavel -- criar
+colaborador -- acesso
 colaborador -- perfil
+colaborador -- consultar_conformidades
+colaborador -- notificacoes
 colaborador -- participar
-colaborador -- alertas
+colaborador -- concluir
+colaborador -- reenviar
 colaborador -- chat
-colaborador -- ia
-gestor -- pessoas
-gestor -- cargos
-gestor -- unidades
-gestor -- conformidades
+colaborador -- chatbot
+gestor -- equipe
+gestor -- importar_colaboradores
 gestor -- eventos
-gestor -- validar
+gestor -- turmas
+gestor -- validar_conclusoes
+gestor -- concluir_colaborador
 gestor -- formularios
-gestor -- responder
-gestor -- bi
-gestor -- chat_gestao
-responsavel -- empresa
-responsavel -- importar
+gestor -- responder_formularios
+gestor -- estrutura
+gestor -- nrs_estrutura
+gestor -- conformidade_manual
+gestor -- importar_conformidades
+gestor -- sugestoes
+gestor -- indicadores
 responsavel -- gestores
 responsavel -- transferir
+responsavel -- workspace
 admin -- catalogo
-admin -- acesso
+admin -- transferencia_excepcional
 
-legend bottom
-  Generalização = capacidades pessoais compartilhadas, sem conta adicional.
-  Os canais e as permissões do servidor continuam distintos.
-  Colaborador: mobile. Gestores: web + mobile. ADMIN: catálogo administrativo.
-  Certificados podem ser evidências; não há módulo autônomo confirmado.
-  Visão de capacidades do código, não comprovação de deploy ou QA completo.
-endlegend
+criar .> validar_chave : «include»
+ativar .> acesso : «extend»
+evidencias .> concluir : «extend»
 @enduml

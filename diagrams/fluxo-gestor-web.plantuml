@@ -1,0 +1,99 @@
+@startuml fluxo_gestor_web
+!include estilo.iuml
+title Fluxo do Gestor — Web ASTRO
+skinparam ConditionStyle InsideDiamond
+skinparam ConditionEndStyle hline
+skinparam Padding 10
+
+start
+:Abrir Astro;
+
+if (Já tem workspace?) then (Sim)
+else (Não)
+  :Validar chave de acesso;
+  :Cadastrar empresa;
+endif
+
+:Acessar workspace;
+:Home;
+
+split
+  :Gerenciar colaboradores;
+  stop
+
+split again
+  :Gerenciar conformidades;
+  stop
+
+split again
+  :Gerenciar unidades;
+  :Selecionar unidade;
+
+  if (Editar NRs?) then (Sim)
+    :Visualizar NRs com\nsugestões da IA;
+    :Selecionar e editar NRs;
+    :Salvar NRs da unidade;
+    stop
+  else (Não)
+    stop
+  endif
+
+split again
+  :Gerenciar cargos;
+  :Selecionar cargo;
+
+  if (Editar NRs?) then (Sim)
+    :Visualizar NRs com\nsugestões da IA;
+    :Selecionar e editar NRs;
+    :Salvar NRs do cargo;
+    stop
+  else (Não)
+    stop
+  endif
+
+split again
+  :Gerenciar formulários;
+  :Selecionar formulário;
+
+  split
+    if (Aprovar formulário?) then (Sim)
+      :Aprovar formulário;
+      stop
+    else (Não)
+      if (Recusar formulário?) then (Sim)
+        :Recusar formulário;
+        stop
+      else (Não)
+        stop
+      endif
+    endif
+
+  split again
+    if (Já foi respondido?) then (Sim)
+      :Visualizar respostas;
+      stop
+    else (Não)
+      stop
+    endif
+  end split
+
+split again
+  :Gerenciar eventos;
+  stop
+
+split again
+  :Visualizar dashboards;
+
+  if (Criar gráfico?) then (Sim)
+    :Criar gráfico personalizado;
+    stop
+  else (Não)
+    stop
+  endif
+
+split again
+  :Editar dados do workspace;
+  stop
+
+end split
+@enduml

@@ -1,0 +1,99 @@
+@startuml fluxo_colaborador
+!include estilo.iuml
+title Fluxo do colaborador
+skinparam ConditionStyle InsideDiamond
+skinparam ConditionEndStyle hline
+skinparam Padding 10
+
+start
+:Informar e-mail;
+
+if (Primeiro acesso?) then (Sim)
+  :Validar chave e definir senha;
+  :Entrar na conta;
+else (Não)
+  :Entrar na conta;
+endif
+
+if (Acesso válido?) then (Sim)
+  :Home;
+else (Não)
+  :Exibir erro de acesso;
+  stop
+endif
+
+split
+  :Consultar eventos;
+
+  if (Abrir detalhes?) then (Sim)
+    :Consultar detalhes e\nsituação da participação;
+
+    if (Concluir evento?) then (Sim)
+      :Concluir evento;
+      stop
+    else (Não)
+      stop
+    endif
+
+  else (Não)
+    stop
+  endif
+
+split again
+  :Abrir ChatBot;
+
+  if (Enviar pergunta?) then (Sim)
+    :Enviar pergunta ao ChatBot;
+    :Receber resposta;
+    stop
+  else (Não)
+    stop
+  endif
+
+split again
+  :Abrir chat entre humanos;
+  :Selecionar colaborador;
+  :Consultar histórico da conversa;
+
+  if (Enviar mensagem?) then (Sim)
+    :Enviar mensagem ao contato;
+    stop
+  else (Não)
+    stop
+  endif
+
+split again
+  :Consultar alertas;
+
+  if (Abrir detalhes?) then (Sim)
+    :Consultar detalhes do alerta;
+
+    if (Possui evento vinculado?) then (Sim)
+      if (Abrir evento vinculado?) then (Sim)
+        :Consultar detalhes e\nsituação da participação;
+
+        if (Concluir evento?) then (Sim)
+          :Concluir evento;
+          stop
+        else (Não)
+          stop
+        endif
+
+      else (Não)
+        stop
+      endif
+    else (Não)
+      stop
+    endif
+
+  else (Não)
+    stop
+  endif
+
+split again
+  :Visualizar situação atual em\nrelação aos eventos;
+  stop
+
+end split
+
+@enduml
