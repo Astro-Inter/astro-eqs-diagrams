@@ -1,6 +1,6 @@
 @startuml casos_de_uso
 !include estilo.iuml
-title Astro — CASOS DE USO
+title Astro — Casos de uso
 left to right direction
 skinparam nodesep 20
 skinparam ranksep 45
