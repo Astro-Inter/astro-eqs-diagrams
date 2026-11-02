@@ -43,6 +43,7 @@ responsavel -- workspace
 admin -- catalogo
 admin -- aprovar_nrs
 
-criar .> validar_chave : <back:white> «include» </back>
-ativar .> acesso : <back:white> «extend» </back>
+' Espaços inseparáveis compensam o deslocamento dos rótulos no Smetana.
+criar .> validar_chave : <back:white>       «include» </back>
+ativar .> acesso : <back:white>       «extend» </back>
 @enduml
