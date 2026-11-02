@@ -7,11 +7,14 @@ skinparam Padding 10
 
 start
 :Informar e-mail;
+
 if (Primeiro acesso?) then (Sim)
   :Validar chave e definir senha;
 else (Não)
 endif
+
 :Entrar na conta;
+
 if (Acesso válido?) then (Sim)
   :Home;
 else (Não)
@@ -20,24 +23,77 @@ else (Não)
 endif
 
 split
-  :Consultar eventos no calendário;
+  :Consultar eventos;
+
   if (Abrir detalhes?) then (Sim)
     :Consultar detalhes e\nsituação da participação;
+
+    if (Concluir evento?) then (Sim)
+      :Concluir evento;
+      stop
+    else (Não)
+      stop
+    endif
+
+  else (Não)
+    stop
+  endif
+
+split again
+  :Abrir ChatBot;
+
+  if (Enviar pergunta?) then (Sim)
+    :Enviar pergunta ao ChatBot;
+    :Receber resposta;
     stop
   else (Não)
     stop
   endif
+
 split again
-  :Enviar pergunta ao ChatBot;
-  :Receber resposta;
-  stop
-split again
-  :Selecionar colaborador e consultar\nhistórico da conversa;
+  :Abrir chat entre humanos;
+  :Selecionar colaborador;
+  :Consultar histórico da conversa;
+
   if (Enviar mensagem?) then (Sim)
     :Enviar mensagem ao contato;
     stop
   else (Não)
     stop
   endif
+
+split again
+  :Consultar alertas;
+
+  if (Abrir detalhes?) then (Sim)
+    :Consultar detalhes do alerta;
+
+    if (Possui evento vinculado?) then (Sim)
+      if (Abrir evento vinculado?) then (Sim)
+        :Consultar detalhes e\nsituação da participação;
+
+        if (Concluir evento?) then (Sim)
+          :Concluir evento;
+          stop
+        else (Não)
+          stop
+        endif
+
+      else (Não)
+        stop
+      endif
+    else (Não)
+      stop
+    endif
+
+  else (Não)
+    stop
+  endif
+
+split again
+  :Visualizar situação atual em\nrelação aos eventos;
+  stop
+
 end split
+
 @enduml
