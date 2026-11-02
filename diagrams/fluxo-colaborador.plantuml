@@ -9,6 +9,7 @@ title Fluxo do colaborador
 left to right direction
 skinparam packageBorderColor #D9CCE8
 skinparam packageBackgroundColor #FDFBFF
+' Finais numerados evitam setas de encerramento cruzando outras áreas.
 skinparam nodesep 30
 skinparam ranksep 65
 
@@ -39,7 +40,7 @@ partition "Calendário" {
   --> ===calendario_fim===
   --> "Outras ações" as outras_acoes
 
-  outras_acoes --> (*)
+  outras_acoes --> (*1)
   outras_acoes --> "Voltar para Home" as home_calendario
   outras_acoes --> "Clicou para saber mais sobre\num evento específico" as abrir_evento
   --> ===evento_inicio===
@@ -60,7 +61,7 @@ partition "NRs" {
   ===nrs_inicio=== --> "Consultar NRs, conformidades\ne validades do colaborador" as consultar_nrs
   --> ===nrs_fim===
   --> "Outras ações" as acoes_nrs
-  --> (*)
+  --> (*2)
   acoes_nrs --> "Voltar para Home" as home_nrs
 }
 
@@ -77,15 +78,16 @@ partition "Chatbot" {
   else
     -->[<back:white>Não</back>] "Salva a conversa\nno banco" as salvar_chatbot
     --> "Outras ações" as acoes_chatbot
-    --> (*)
+    --> (*3)
   endif
   acoes_chatbot --> "Voltar para Home" as home_chatbot
 
 }
 
 partition "Chat com o gestor" {
-  ' Sem seta de entrada na imagem do ZIP.
-  "Chat com o Gestor" --> ===gestor_inicio===
+  ' A ligação oculta apenas alinha este bloco com as opções da Home.
+  home -[hidden]-> "Chat com o Gestor" as abrir_chat_gestor
+  abrir_chat_gestor --> ===gestor_inicio===
   --> "Tela de Conversa" as tela_chat_gestor
   --> ===gestor_fim===
 
@@ -96,7 +98,7 @@ partition "Chat com o gestor" {
   else
     -->[<back:white>Não</back>] "Salva a conversa\nno banco" as salvar_chat_gestor
     --> "Outras ações" as acoes_chat_gestor
-    --> (*)
+    --> (*4)
   endif
   acoes_chat_gestor --> "Voltar para Home" as home_chat_gestor
 }
