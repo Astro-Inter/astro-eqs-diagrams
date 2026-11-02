@@ -28,6 +28,7 @@ rectangle "Astro" {
   usecase "Consultar indicadores" as indicadores
   usecase "Administrar workspace" as workspace
   usecase "Gerenciar catálogo de NRs" as catalogo
+  usecase "Revisar e aprovar NRs\ngeradas por IA" as aprovar_nrs
 }
 responsavel -- criar
 colaborador -- acesso
@@ -40,6 +41,7 @@ gestor -- operacao
 gestor -- indicadores
 responsavel -- workspace
 admin -- catalogo
+admin -- aprovar_nrs
 
 criar .> validar_chave : <back:white> «include» </back>
 ativar .> acesso : <back:white> «extend» </back>
