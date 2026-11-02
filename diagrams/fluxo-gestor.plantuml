@@ -8,11 +8,12 @@ skinparam Padding 10
 start
 :Abrir Astro;
 if (Já tem workspace?) then (Sim)
+  :Acessar workspace;
 else (Não)
   :Validar chave de acesso;
   :Cadastrar empresa;
+  :Acessar workspace;
 endif
-:Acessar workspace;
 
 split
   :Editar dados do workspace;

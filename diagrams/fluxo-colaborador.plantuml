@@ -10,10 +10,10 @@ start
 
 if (Primeiro acesso?) then (Sim)
   :Validar chave e definir senha;
+  :Entrar na conta;
 else (Não)
+  :Entrar na conta;
 endif
-
-:Entrar na conta;
 
 if (Acesso válido?) then (Sim)
   :Home;
