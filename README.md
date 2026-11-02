@@ -13,7 +13,7 @@ No caso de uso, `<<include>>` representa a validação da chave como parte obrig
 | Diagrama | O que mostra | Fonte editável |
 | --- | --- | --- |
 | [Casos de uso e papéis](diagrams/rendered/casos_de_uso.svg) | Responsabilidades de Colaborador, Gestor, Gestor do Workspace e ADMIN. | [casos-de-uso.plantuml](diagrams/casos-de-uso.plantuml) |
-| [Jornada do colaborador](diagrams/rendered/fluxo_colaborador.svg) | Login, cadastro, calendário, NRs, conformidades, validades e conversas. | [fluxo-colaborador.plantuml](diagrams/fluxo-colaborador.plantuml) |
+| [Jornada do colaborador](diagrams/rendered/fluxo_colaborador.svg) | Login, cadastro, calendário e conversas. | [fluxo-colaborador.plantuml](diagrams/fluxo-colaborador.plantuml) |
 | [Jornada do gestor](diagrams/rendered/fluxo_gestor.svg) | Acesso ao workspace, configurações, unidades e cadastro de colaboradores. | [fluxo-gestor.plantuml](diagrams/fluxo-gestor.plantuml) |
 
 ## Visualização
@@ -34,7 +34,7 @@ Responsabilidades de Colaborador, Gestor, Gestor do Workspace e ADMIN.
 <details>
 <summary>Jornada do colaborador</summary>
 
-Login, cadastro, calendário, NRs, conformidades, validades e conversas.
+Login, cadastro, calendário e conversas.
 
 [Abrir imagem em tamanho completo](diagrams/rendered/fluxo_colaborador.svg) · [Editar PlantUML](diagrams/fluxo-colaborador.plantuml)
 
@@ -68,6 +68,6 @@ O comando usa Java e PlantUML com Smetana, sem instalação separada de Graphviz
 
 Os fluxos mostram as ações do usuário e seus resultados. Consultar uma informação não exige etapas duplicadas de abrir tela e carregar a mesma informação pela API. Cada opção termina a tarefa escolhida; o ponto final não significa sair da conta. Os caminhos de sim e não também têm continuação ou encerramento explícito.
 
-O sistema não armazena certificados. A consulta de NRs mostra conformidades e validades, e a participação nos treinamentos aparece nos eventos. As opções do gestor separam configurações, cadastro manual e cadastro por planilha. Criar uma unidade durante o cadastro manual permite continuar o cadastro do colaborador.
+O sistema não armazena certificados. A participação nos treinamentos aparece nos eventos. As opções do gestor separam configurações, cadastro manual e cadastro por planilha. Criar uma unidade durante o cadastro manual permite continuar o cadastro do colaborador.
 
 O [relatório de revisão](docs/revisao-contexto.md) registra a análise técnica anterior. Os desenhos atuais priorizam uma visão funcional, sem duplicar chamadas de API, persistência ou navegação.

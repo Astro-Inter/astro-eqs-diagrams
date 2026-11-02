@@ -33,11 +33,6 @@ partition "Eventos" {
   endif
 }
 
-partition "NRs" {
-  home --> "Consultar NRs, conformidades\ne validades" as nrs
-  --> (*4)
-}
-
 partition "ChatBot" {
   home --> "Enviar pergunta ao ChatBot" as pergunta
   --> "Receber resposta" as resposta
