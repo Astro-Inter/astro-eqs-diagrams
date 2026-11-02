@@ -5,16 +5,14 @@ skinparam ConditionStyle InsideDiamond
 skinparam ConditionEndStyle hline
 skinparam Padding 10
 
-partition "Acesso ao workspace" {
-  start
-  :Abrir Astro;
-  if (Já tem workspace?) then (Sim)
-  else (Não)
-    :Validar chave de acesso;
-    :Cadastrar empresa;
-  endif
-  :Acessar workspace;
-}
+start
+:Abrir Astro;
+if (Já tem workspace?) then (Sim)
+else (Não)
+  :Validar chave de acesso;
+  :Cadastrar empresa;
+endif
+:Acessar workspace;
 
 split
   :Editar dados do workspace;

@@ -5,21 +5,19 @@ skinparam ConditionStyle InsideDiamond
 skinparam ConditionEndStyle hline
 skinparam Padding 10
 
-partition "Acesso" {
-  start
-  :Informar e-mail;
-  if (Primeiro acesso?) then (Sim)
-    :Validar chave e definir senha;
-  else (Não)
-  endif
-  :Entrar na conta;
-  if (Acesso válido?) then (Sim)
-    :Home;
-  else (Não)
-    :Exibir erro de acesso;
-    stop
-  endif
-}
+start
+:Informar e-mail;
+if (Primeiro acesso?) then (Sim)
+  :Validar chave e definir senha;
+else (Não)
+endif
+:Entrar na conta;
+if (Acesso válido?) then (Sim)
+  :Home;
+else (Não)
+  :Exibir erro de acesso;
+  stop
+endif
 
 split
   :Consultar eventos no calendário;
