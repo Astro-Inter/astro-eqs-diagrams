@@ -1,6 +1,6 @@
 @startuml fluxo_gestor
 !include estilo.iuml
-title Fluxo do gestor
+title Fluxo do gestor no web
 skinparam ConditionStyle InsideDiamond
 skinparam ConditionEndStyle hline
 skinparam Padding 10
