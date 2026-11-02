@@ -13,7 +13,7 @@ No caso de uso, `<<include>>` representa a validação da chave como parte obrig
 | Diagrama | O que mostra | Fonte editável |
 | --- | --- | --- |
 | [Casos de uso e papéis](diagrams/rendered/casos_de_uso.svg) | Responsabilidades de Colaborador, Gestor, Gestor do Workspace e ADMIN. | [casos-de-uso.plantuml](diagrams/casos-de-uso.plantuml) |
-| [Jornada do colaborador](diagrams/rendered/fluxo_colaborador.svg) | Login, cadastro, calendário, histórico de treinamentos, NRs e conversas. | [fluxo-colaborador.plantuml](diagrams/fluxo-colaborador.plantuml) |
+| [Jornada do colaborador](diagrams/rendered/fluxo_colaborador.svg) | Login, cadastro, calendário, NRs, conformidades, validades e conversas. | [fluxo-colaborador.plantuml](diagrams/fluxo-colaborador.plantuml) |
 | [Jornada do gestor](diagrams/rendered/fluxo_gestor.svg) | Acesso ao workspace, configurações, unidades e cadastro de colaboradores. | [fluxo-gestor.plantuml](diagrams/fluxo-gestor.plantuml) |
 
 ## Visualização
@@ -34,7 +34,7 @@ Responsabilidades de Colaborador, Gestor, Gestor do Workspace e ADMIN.
 <details>
 <summary>Jornada do colaborador</summary>
 
-Login, cadastro, calendário, histórico de treinamentos, NRs e conversas.
+Login, cadastro, calendário, NRs, conformidades, validades e conversas.
 
 [Abrir imagem em tamanho completo](diagrams/rendered/fluxo_colaborador.svg) · [Editar PlantUML](diagrams/fluxo-colaborador.plantuml)
 
@@ -66,6 +66,6 @@ O comando usa Java e PlantUML com Smetana, sem instalação separada de Graphviz
 
 ## Referência dos fluxos
 
-Os fluxos do colaborador e do gestor seguem as imagens de atividades do arquivo entrega-astro.zip. As etapas, ramificações e integrações descritas nessas imagens foram recuperadas; os ajustes visuais abrangem cores, organização por área, espaçamento e destaque dos rótulos. Os losangos são usados apenas para perguntas de **sim** ou **não**, sem anotações de rodapé.
+Os fluxos do colaborador e do gestor seguem as imagens de atividades do arquivo entrega-astro.zip. A parte de certificados foi atualizada conforme o escopo atual: o sistema não armazena certificados, e a consulta de NRs apresenta conformidades e validades. A participação nos treinamentos é consultada nos eventos. As demais etapas, ramificações e integrações dessas imagens foram recuperadas; os ajustes visuais abrangem cores, organização por área, espaçamento e destaque dos rótulos. Os losangos são usados apenas para perguntas de **sim** ou **não**, sem anotações de rodapé.
 
 O [relatório de revisão](docs/revisao-contexto.md) continua disponível para consultar as diferenças em relação ao código do projeto.

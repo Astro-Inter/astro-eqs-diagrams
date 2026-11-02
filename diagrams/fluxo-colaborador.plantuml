@@ -4,12 +4,13 @@ title Fluxo do colaborador
 ' Jira: https://luizacursino.atlassian.net/browse/SCRUM-558
 ' Fonte: Entrega Astro/Diagramas/Fluxo Funcionario - Diagrama de  atividades.jpg
 ' no arquivo entrega-astro.zip. Substitui a versão anterior do draw.io.
+' Escopo atualizado: sem armazenamento ou consulta de certificados.
 !include estilo.iuml
 left to right direction
 skinparam packageBorderColor #D9CCE8
 skinparam packageBackgroundColor #FDFBFF
 skinparam nodesep 30
-skinparam ranksep 45
+skinparam ranksep 65
 
 partition "Autenticação" {
   (*) --> if "\n<back:white>Já tem cadastro?   </back>" then
@@ -42,22 +43,12 @@ partition "Calendário" {
   outras_acoes --> "Voltar para Home" as home_calendario
   outras_acoes --> "Clicou para saber mais sobre\num evento específico" as abrir_evento
   --> ===evento_inicio===
-  --> "Informações do evento" as informacoes_evento
+  --> "Informações do evento\ne situação da participação" as informacoes_evento
   --> ===evento_fim===
 
   ===evento_inicio=== --> "API do Calendário\npara carregar os eventos" as api_evento
   --> ===evento_fim===
   --> "Voltar para Calendário" as voltar_calendario
-}
-
-partition "Histórico de treinamentos" {
-  home --> "Ver Histórico de Treinamentos" as abrir_historico
-  --> ===historico_inicio===
-  --> "API do Histórico\npara puxar os certificados\ne cursos concluídos" as api_historico
-  --> ===historico_fim===
-  --> "Outras ações" as acoes_historico
-  --> (*)
-  acoes_historico --> "Voltar para Home" as home_historico
 }
 
 partition "NRs" {
@@ -66,7 +57,7 @@ partition "NRs" {
   --> "Tela das NRs" as tela_nrs
   --> ===nrs_fim===
 
-  ===nrs_inicio=== --> "API do Histórico\npara puxar os certificados\ne cursos concluídos" as api_historico_nrs
+  ===nrs_inicio=== --> "Consultar NRs, conformidades\ne validades do colaborador" as consultar_nrs
   --> ===nrs_fim===
   --> "Outras ações" as acoes_nrs
   --> (*)
@@ -90,8 +81,6 @@ partition "Chatbot" {
   endif
   acoes_chatbot --> "Voltar para Home" as home_chatbot
 
-  ' A imagem mantém a conexão da tela do chatbot com a API do Histórico das NRs.
-  tela_chatbot --> api_historico_nrs
 }
 
 partition "Chat com o gestor" {
