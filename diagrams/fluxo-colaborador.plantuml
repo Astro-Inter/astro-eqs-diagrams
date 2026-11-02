@@ -9,13 +9,13 @@ skinparam ranksep 55
 
 partition "Acesso" {
   (*) --> "Informar e-mail" as email
-  --> if "\n<back:white>Primeiro acesso?   </back>" then
+  -right-> if "\n\n<back:white>Primeiro acesso?   </back>" then
     -->[<back:white>Sim</back>] "Validar chave e definir senha" as ativar
     --> "Entrar na conta" as login
   else
     -->[<back:white>Não</back>] login
   endif
-  login --> if "\n<back:white>Acesso válido?   </back>" then
+  login --> if "\n\n<back:white>Acesso válido?   </back>" then
     -->[<back:white>Sim</back>] "Home" as home
   else
     -->[<back:white>Não</back>] "Exibir erro de acesso" as erro
@@ -25,7 +25,7 @@ partition "Acesso" {
 
 partition "Eventos" {
   home --> "Consultar eventos no calendário" as eventos
-  --> if "\n<back:white>Abrir detalhes?   </back>" then
+  --> if "\n\n<back:white>Abrir detalhes?   </back>" then
     -->[<back:white>Sim</back>] "Consultar detalhes e\nsituação da participação" as detalhes
     --> (*2)
   else
@@ -46,7 +46,7 @@ partition "Astrinho" {
 
 partition "Chat com o gestor" {
   home --> "Selecionar gestor e consultar\nhistórico da conversa" as contato
-  --> if "\n<back:white>Enviar mensagem?   </back>" then
+  --> if "\n\n<back:white>Enviar mensagem?   </back>" then
     -->[<back:white>Sim</back>] "Enviar mensagem ao gestor" as mensagem
     --> (*6)
   else

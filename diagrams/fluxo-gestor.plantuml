@@ -8,7 +8,8 @@ skinparam nodesep 35
 skinparam ranksep 55
 
 partition "Acesso ao workspace" {
-  (*) --> if "\n<back:white>Já tem workspace?   </back>" then
+  (*) --> "Abrir Astro" as abrir
+  -right-> if "\n\n<back:white>Já tem workspace?   </back>" then
     -->[<back:white>Sim</back>] "Acessar workspace" as workspace
   else
     -->[<back:white>Não</back>] "Validar chave de acesso" as chave
@@ -28,7 +29,7 @@ partition "Configurações" {
 
 partition "Cadastro manual" {
   workspace --> "Iniciar cadastro manual\nde colaborador" as manual
-  --> if "\n<back:white>Unidade cadastrada?   </back>" then
+  --> if "\n\n<back:white>Unidade cadastrada?   </back>" then
     -->[<back:white>Sim</back>] "Selecionar unidade" as selecionar
     --> "Definir cargo e suas NRs" as cargo
   else
