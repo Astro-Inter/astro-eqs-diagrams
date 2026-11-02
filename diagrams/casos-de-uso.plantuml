@@ -10,40 +10,76 @@ skinparam actorBorderColor #645679
 
 actor "Colaborador" as colaborador
 actor "Gestor" as gestor
-actor "Responsável pelo\nworkspace" as responsavel
-actor "Administrador\nAstro" as admin
-colaborador -left-|> gestor
-gestor -left-|> responsavel
+actor "Gestor do\nWorkspace" as responsavel
+actor "Administrador\nASTRO" as admin
+gestor -left-|> colaborador
+responsavel -left-|> gestor
 
 rectangle "Astro" {
   usecase "Criar workspace" as criar
   usecase "Validar chave\ndo workspace" as validar_chave
   usecase "Acessar conta" as acesso
   usecase "Ativar conta\n(primeiro acesso)" as ativar
-  usecase "Consultar perfil,\nNRs e alertas" as perfil
+  usecase "Consultar perfil" as perfil
+  usecase "Consultar conformidades" as consultar_conformidades
+  usecase "Consultar notificações" as notificacoes
   usecase "Participar de eventos" as participar
-  usecase "Usar chat e ChatBot" as conversar
-  usecase "Gerenciar equipe\ne conformidades" as equipe
-  usecase "Gerenciar eventos\ne formulários" as operacao
+  usecase "Registrar conclusão\nde evento" as concluir
+  usecase "Anexar evidências" as evidencias
+  usecase "Reenviar conclusão\nrejeitada" as reenviar
+  usecase "Utilizar chat" as chat
+  usecase "Consultar ChatBot" as chatbot
+  usecase "Gerenciar colaboradores" as equipe
+  usecase "Importar colaboradores" as importar_colaboradores
+  usecase "Gerenciar eventos" as eventos
+  usecase "Gerenciar turmas" as turmas
+  usecase "Validar ou rejeitar\nconclusões" as validar_conclusoes
+  usecase "Registrar conclusão\nde colaborador" as concluir_colaborador
+  usecase "Gerenciar formulários" as formularios
+  usecase "Responder formulários" as responder_formularios
+  usecase "Gerenciar cargos\ne unidades" as estrutura
+  usecase "Gerenciar NRs por\ncargo e unidade" as nrs_estrutura
+  usecase "Registrar conformidade\nmanualmente" as conformidade_manual
+  usecase "Importar conformidades" as importar_conformidades
+  usecase "Analisar sugestões\nde NRs por IA" as sugestoes
   usecase "Consultar indicadores" as indicadores
-  usecase "Administrar workspace" as workspace
+  usecase "Gerenciar gestores" as gestores
+  usecase "Transferir responsabilidade\npelo workspace" as transferir
+  usecase "Configurar workspace" as workspace
   usecase "Gerenciar catálogo de NRs" as catalogo
-  usecase "Revisar e aprovar NRs\ngeradas por IA" as aprovar_nrs
+  usecase "Analisar e decidir transferências\nexcepcionais de workspace" as transferencia_excepcional
 }
 responsavel -- criar
 colaborador -- acesso
-colaborador -- ativar
 colaborador -- perfil
+colaborador -- consultar_conformidades
+colaborador -- notificacoes
 colaborador -- participar
-colaborador -- conversar
+colaborador -- concluir
+colaborador -- reenviar
+colaborador -- chat
+colaborador -- chatbot
 gestor -- equipe
-gestor -- operacao
+gestor -- importar_colaboradores
+gestor -- eventos
+gestor -- turmas
+gestor -- validar_conclusoes
+gestor -- concluir_colaborador
+gestor -- formularios
+gestor -- responder_formularios
+gestor -- estrutura
+gestor -- nrs_estrutura
+gestor -- conformidade_manual
+gestor -- importar_conformidades
+gestor -- sugestoes
 gestor -- indicadores
+responsavel -- gestores
+responsavel -- transferir
 responsavel -- workspace
 admin -- catalogo
-admin -- aprovar_nrs
+admin -- transferencia_excepcional
 
-' Espaços inseparáveis compensam o deslocamento dos rótulos no Smetana.
-criar .> validar_chave : <back:white>       «include» </back>
-ativar .> acesso : <back:white>       «extend» </back>
+criar .> validar_chave : «include»
+ativar .> acesso : «extend»
+evidencias .> concluir : «extend»
 @enduml
