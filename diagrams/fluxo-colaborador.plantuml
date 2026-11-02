@@ -1,5 +1,5 @@
-@startuml fluxo_funcionario
-title Fluxo do funcionário
+@startuml fluxo_colaborador
+title Fluxo do colaborador
 
 ' Jira: https://luizacursino.atlassian.net/browse/SCRUM-558
 ' Fonte: Entrega Astro/Diagramas/Fluxo Funcionario - Diagrama de  atividades.jpg
@@ -29,7 +29,7 @@ partition "Autenticação" {
 }
 
 partition "Calendário" {
-  home --> "Funcionário vai para a tela\nde calendário" as abrir_calendario
+  home --> "Colaborador vai para a tela\nde calendário" as abrir_calendario
   --> ===calendario_inicio===
   --> "Tela Calendário" as tela_calendario
   --> ===calendario_fim===

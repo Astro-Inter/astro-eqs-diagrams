@@ -34,25 +34,25 @@ partition "Configurações" {
   --> (*)
 }
 
-partition "Cadastro de funcionários" {
-  workspace --> "Cadastrar funcionários" as cadastrar_funcionarios
+partition "Cadastro de colaboradores" {
+  workspace --> "Cadastrar colaboradores" as cadastrar_colaboradores
   --> "Faz cadastro manual" as cadastro_manual
   --> if "\n<back:white>Já existe unidade?   </back>" then
-    -->[<back:white>Sim</back>] "Cria cargos de funcionários" as criar_cargos
+    -->[<back:white>Sim</back>] "Cria cargos de colaboradores" as criar_cargos
     --> "Sugere NRs para cargo criado" as sugerir_nrs
     --> "Configura NRs do cargo" as configurar_nrs_cargo
-    --> "Cria perfis de funcionários" as criar_perfis
-    --> "Gera chave de acesso para contas\ndos funcionários criados" as gerar_chaves_funcionarios
+    --> "Cria perfis de colaboradores" as criar_perfis
+    --> "Gera chave de acesso para contas\ndos colaboradores criados" as gerar_chaves_colaboradores
     --> (*)
   else
     -->[<back:white>Não</back>] criar_unidades
   endif
 
   ' O rótulo "Exporta planilha" é o que consta na imagem de origem.
-  cadastrar_funcionarios --> "Exporta planilha de funcionários" as exportar_planilha
-  --> "Cria cargos e perfis de funcionário\npor meio do excel" as criar_perfis_excel
+  cadastrar_colaboradores --> "Exporta planilha de colaboradores" as exportar_planilha
+  --> "Cria cargos e perfis de colaborador\npor meio do excel" as criar_perfis_excel
   --> "Configuração posterior de NRs\npor cargo" as configurar_nrs_excel
-  --> gerar_chaves_funcionarios
+  --> gerar_chaves_colaboradores
 }
 
 @enduml

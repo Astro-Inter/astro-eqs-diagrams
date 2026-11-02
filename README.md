@@ -2,7 +2,7 @@
 
 Diagramas PlantUML do Astro, na tarefa [SCRUM-558](https://luizacursino.atlassian.net/browse/SCRUM-558).
 
-O repositório mantém somente os três diagramas do ZIP: casos de uso, fluxo do funcionário e fluxo do gestor. O caso de uso mantém a versão simplificada e os papéis ajustados. Os dois fluxos recuperam as etapas e conexões das imagens originais do ZIP, com apresentação padronizada em PlantUML.
+O repositório mantém somente os três diagramas do ZIP: casos de uso, fluxo do colaborador e fluxo do gestor. O caso de uso mantém a versão simplificada e os papéis ajustados. Os dois fluxos recuperam as etapas e conexões das imagens originais do ZIP, com apresentação padronizada em PlantUML.
 
 O [relatório de revisão](docs/revisao-contexto.md) registra separadamente a análise dos 21 repositórios da Astro-Inter e as diferenças entre a documentação original e o código consultado.
 
@@ -13,8 +13,8 @@ No caso de uso, `<<include>>` representa a validação da chave como parte obrig
 | Diagrama | O que mostra | Fonte editável |
 | --- | --- | --- |
 | [Casos de uso e papéis](diagrams/rendered/casos_de_uso.svg) | Responsabilidades de Colaborador, Gestor, Gestor do Workspace e ADMIN. | [casos-de-uso.plantuml](diagrams/casos-de-uso.plantuml) |
-| [Jornada do colaborador](diagrams/rendered/fluxo_funcionario.svg) | Login, cadastro, calendário, histórico de treinamentos, NRs e conversas. | [fluxo-funcionario.plantuml](diagrams/fluxo-funcionario.plantuml) |
-| [Jornada do gestor](diagrams/rendered/fluxo_gestor.svg) | Acesso ao workspace, configurações, unidades e cadastro de funcionários. | [fluxo-gestor.plantuml](diagrams/fluxo-gestor.plantuml) |
+| [Jornada do colaborador](diagrams/rendered/fluxo_colaborador.svg) | Login, cadastro, calendário, histórico de treinamentos, NRs e conversas. | [fluxo-colaborador.plantuml](diagrams/fluxo-colaborador.plantuml) |
+| [Jornada do gestor](diagrams/rendered/fluxo_gestor.svg) | Acesso ao workspace, configurações, unidades e cadastro de colaboradores. | [fluxo-gestor.plantuml](diagrams/fluxo-gestor.plantuml) |
 
 ## Visualização
 
@@ -36,16 +36,16 @@ Responsabilidades de Colaborador, Gestor, Gestor do Workspace e ADMIN.
 
 Login, cadastro, calendário, histórico de treinamentos, NRs e conversas.
 
-[Abrir imagem em tamanho completo](diagrams/rendered/fluxo_funcionario.svg) · [Editar PlantUML](diagrams/fluxo-funcionario.plantuml)
+[Abrir imagem em tamanho completo](diagrams/rendered/fluxo_colaborador.svg) · [Editar PlantUML](diagrams/fluxo-colaborador.plantuml)
 
-![Jornada do colaborador](diagrams/rendered/fluxo_funcionario.svg)
+![Jornada do colaborador](diagrams/rendered/fluxo_colaborador.svg)
 
 </details>
 
 <details>
 <summary>Jornada do gestor</summary>
 
-Acesso ao workspace, configurações, unidades e cadastro de funcionários.
+Acesso ao workspace, configurações, unidades e cadastro de colaboradores.
 
 [Abrir imagem em tamanho completo](diagrams/rendered/fluxo_gestor.svg) · [Editar PlantUML](diagrams/fluxo-gestor.plantuml)
 
@@ -66,6 +66,6 @@ O comando usa Java e PlantUML com Smetana, sem instalação separada de Graphviz
 
 ## Referência dos fluxos
 
-Os fluxos do funcionário e do gestor seguem as imagens de atividades do arquivo entrega-astro.zip. As etapas, ramificações e integrações descritas nessas imagens foram recuperadas; os ajustes visuais abrangem cores, organização por área, espaçamento e destaque dos rótulos. Os losangos são usados apenas para perguntas de **sim** ou **não**, sem anotações de rodapé.
+Os fluxos do colaborador e do gestor seguem as imagens de atividades do arquivo entrega-astro.zip. As etapas, ramificações e integrações descritas nessas imagens foram recuperadas; os ajustes visuais abrangem cores, organização por área, espaçamento e destaque dos rótulos. Os losangos são usados apenas para perguntas de **sim** ou **não**, sem anotações de rodapé.
 
 O [relatório de revisão](docs/revisao-contexto.md) continua disponível para consultar as diferenças em relação ao código do projeto.
