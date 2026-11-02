@@ -7,39 +7,93 @@ skinparam Padding 10
 
 start
 :Abrir Astro;
+
 if (Já tem workspace?) then (Sim)
-  :Acessar workspace;
 else (Não)
   :Validar chave de acesso;
   :Cadastrar empresa;
-  :Acessar workspace;
 endif
 
+:Acessar workspace;
+:Home;
+
 split
+  :Gerenciar colaboradores;
+  stop
+
+split again
+  :Gerenciar conformidades;
+  stop
+
+split again
+  :Gerenciar unidades;
+  :Selecionar unidade;
+
+  if (Editar NRs?) then (Sim)
+    :Visualizar NRs com\nsugestões da IA;
+    :Selecionar e editar NRs;
+    :Salvar NRs da unidade;
+    stop
+  else (Não)
+    stop
+  endif
+
+split again
+  :Gerenciar cargos;
+  :Selecionar cargo;
+
+  if (Editar NRs?) then (Sim)
+    :Visualizar NRs com\nsugestões da IA;
+    :Selecionar e editar NRs;
+    :Salvar NRs do cargo;
+    stop
+  else (Não)
+    stop
+  endif
+
+split again
+  :Gerenciar formulários;
+  :Selecionar formulário;
+
+  split
+    if (Aprovar formulário?) then (Sim)
+      :Aprovar formulário;
+      stop
+    else (Não)
+      if (Recusar formulário?) then (Sim)
+        :Recusar formulário;
+        stop
+      else (Não)
+        stop
+      endif
+    endif
+
+  split again
+    if (Já foi respondido?) then (Sim)
+      :Visualizar respostas;
+      stop
+    else (Não)
+      stop
+    endif
+  end split
+
+split again
+  :Gerenciar eventos;
+  stop
+
+split again
+  :Visualizar dashboards;
+
+  if (Criar gráfico?) then (Sim)
+    :Criar gráfico personalizado;
+    stop
+  else (Não)
+    stop
+  endif
+
+split again
   :Editar dados do workspace;
   stop
-split again
-  :Configurar NRs da empresa;
-  stop
-split again
-  :Cadastrar e configurar unidade;
-  stop
-split again
-  :Iniciar cadastro manual\nde colaborador;
-  if (Unidade cadastrada?) then (Sim)
-    :Selecionar unidade;
-  else (Não)
-    :Cadastrar unidade para\no colaborador;
-  endif
-  :Definir cargo e suas NRs;
-  :Preencher dados do colaborador;
-  :Concluir pré-cadastro e\nenviar chave de primeiro acesso;
-  stop
-split again
-  :Preparar planilha\nde colaboradores;
-  :Importar dados da planilha;
-  :Configurar NRs por cargo;
-  :Concluir pré-cadastros e\nenviar chaves de primeiro acesso;
-  stop
+
 end split
 @enduml
