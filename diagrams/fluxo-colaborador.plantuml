@@ -1,51 +1,45 @@
 @startuml fluxo_colaborador
-title Fluxo do colaborador
-' Jira: SCRUM-558. Fluxo revisado a partir do ZIP, sem certificados.
 !include estilo.iuml
-left to right direction
-skinparam packageBorderColor #D9CCE8
-skinparam nodesep 35
-skinparam ranksep 55
+title Fluxo do colaborador
+skinparam ConditionStyle InsideDiamond
+skinparam ConditionEndStyle hline
+skinparam Padding 10
 
 partition "Acesso" {
-  (*) --> "Informar e-mail" as email
-  -right-> if "<back:white>Primeiro acesso?   </back>" then
-    -->[<back:white>Sim</back>] "Validar chave e definir senha" as ativar
-    --> "Entrar na conta" as login
-  else
-    -->[<back:white>Não</back>] login
+  start
+  :Informar e-mail;
+  if (Primeiro acesso?) then (Sim)
+    :Validar chave e definir senha;
+  else (Não)
   endif
-  login --> if "\n<back:white>Acesso válido?   </back>" then
-    -->[<back:white>Sim</back>] "Home" as home
-  else
-    -->[<back:white>Não</back>] "Exibir erro de acesso" as erro
-    --> (*1)
-  endif
-}
-
-partition "Eventos" {
-  home --> "Consultar eventos no calendário" as eventos
-  --> if "\n<back:white>Abrir detalhes?   </back>" then
-    -->[<back:white>Sim</back>] "Consultar detalhes e\nsituação da participação" as detalhes
-    --> (*2)
-  else
-    -->[<back:white>Não</back>] (*3)
+  :Entrar na conta;
+  if (Acesso válido?) then (Sim)
+    :Home;
+  else (Não)
+    :Exibir erro de acesso;
+    stop
   endif
 }
 
-partition "ChatBot" {
-  home --> "Enviar pergunta ao ChatBot" as pergunta
-  --> "Receber resposta" as resposta
-  --> (*5)
-}
-
-partition "Chat com colaboradores" {
-  home --> "Selecionar colaborador e consultar\nhistórico da conversa" as contato
-  --> if "\n<back:white>Enviar mensagem?   </back>" then
-    -->[<back:white>Sim</back>] "Enviar mensagem ao contato" as mensagem
-    --> (*6)
-  else
-    -->[<back:white>Não</back>] (*7)
+split
+  :Consultar eventos no calendário;
+  if (Abrir detalhes?) then (Sim)
+    :Consultar detalhes e\nsituação da participação;
+    stop
+  else (Não)
+    stop
   endif
-}
+split again
+  :Enviar pergunta ao ChatBot;
+  :Receber resposta;
+  stop
+split again
+  :Selecionar colaborador e consultar\nhistórico da conversa;
+  if (Enviar mensagem?) then (Sim)
+    :Enviar mensagem ao contato;
+    stop
+  else (Não)
+    stop
+  endif
+end split
 @enduml

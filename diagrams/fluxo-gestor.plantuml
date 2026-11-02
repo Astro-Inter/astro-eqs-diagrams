@@ -1,51 +1,46 @@
 @startuml fluxo_gestor
-title Fluxo do gestor
-' Jira: SCRUM-558. Cada opção encerra a tarefa escolhida.
 !include estilo.iuml
-left to right direction
-skinparam packageBorderColor #D9CCE8
-skinparam nodesep 35
-skinparam ranksep 55
+title Fluxo do gestor
+skinparam ConditionStyle InsideDiamond
+skinparam ConditionEndStyle hline
+skinparam Padding 10
 
 partition "Acesso ao workspace" {
-  (*) --> "Abrir Astro" as abrir
-  -right-> if "<back:white>Já tem workspace?   </back>" then
-    -->[<back:white>Sim</back>] "Acessar workspace" as workspace
-  else
-    -->[<back:white>Não</back>] "Validar chave de acesso" as chave
-    --> "Cadastrar empresa" as empresa
-    --> workspace
+  start
+  :Abrir Astro;
+  if (Já tem workspace?) then (Sim)
+  else (Não)
+    :Validar chave de acesso;
+    :Cadastrar empresa;
   endif
+  :Acessar workspace;
 }
 
-partition "Configurações" {
-  workspace --> "Editar dados do workspace" as configurar
-  --> (*1)
-  workspace --> "Configurar NRs da empresa" as nrs
-  --> (*2)
-  workspace --> "Cadastrar e configurar unidade" as unidade
-  --> (*3)
-}
-
-partition "Cadastro manual" {
-  workspace --> "Iniciar cadastro manual\nde colaborador" as manual
-  --> if "\n<back:white>Unidade cadastrada?   </back>" then
-    -->[<back:white>Sim</back>] "Selecionar unidade" as selecionar
-    --> "Definir cargo e suas NRs" as cargo
-  else
-    -->[<back:white>Não</back>] "Cadastrar unidade para\no colaborador" as nova_unidade
-    --> cargo
+split
+  :Editar dados do workspace;
+  stop
+split again
+  :Configurar NRs da empresa;
+  stop
+split again
+  :Cadastrar e configurar unidade;
+  stop
+split again
+  :Iniciar cadastro manual\nde colaborador;
+  if (Unidade cadastrada?) then (Sim)
+    :Selecionar unidade;
+  else (Não)
+    :Cadastrar unidade para\no colaborador;
   endif
-  cargo --> "Preencher dados do colaborador" as dados
-  --> "Concluir pré-cadastro e\nenviar chave de primeiro acesso" as concluir_manual
-  --> (*4)
-}
-
-partition "Cadastro por planilha" {
-  workspace --> "Preparar planilha\nde colaboradores" as planilha
-  --> "Importar dados da planilha" as importar
-  --> "Configurar NRs por cargo" as configurar_nrs
-  --> "Concluir pré-cadastros e\nenviar chaves de primeiro acesso" as concluir_planilha
-  --> (*5)
-}
+  :Definir cargo e suas NRs;
+  :Preencher dados do colaborador;
+  :Concluir pré-cadastro e\nenviar chave de primeiro acesso;
+  stop
+split again
+  :Preparar planilha\nde colaboradores;
+  :Importar dados da planilha;
+  :Configurar NRs por cargo;
+  :Concluir pré-cadastros e\nenviar chaves de primeiro acesso;
+  stop
+end split
 @enduml

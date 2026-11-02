@@ -66,7 +66,7 @@ O comando usa Java e PlantUML com Smetana, sem instalação separada de Graphviz
 
 ## Referência dos fluxos
 
-Os fluxos mostram as ações do usuário e seus resultados. Consultar uma informação não exige etapas duplicadas de abrir tela e carregar a mesma informação pela API. Cada opção termina a tarefa escolhida; o ponto final não significa sair da conta. Os caminhos de sim e não também têm continuação ou encerramento explícito.
+Os fluxos mostram as ações do usuário e seus resultados. Consultar uma informação não exige etapas duplicadas de abrir tela e carregar a mesma informação pela API. Cada opção termina a tarefa escolhida; o ponto final não significa sair da conta. As perguntas ficam centralizadas dentro dos losangos, com Sim e Não nas setas de saída. Os caminhos de sim e não também têm continuação ou encerramento explícito.
 
 O sistema não armazena certificados. A participação nos treinamentos aparece nos eventos. As opções do gestor separam configurações, cadastro manual e cadastro por planilha. Criar uma unidade durante o cadastro manual permite continuar o cadastro do colaborador.
 
