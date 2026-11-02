@@ -1,59 +1,50 @@
 @startuml fluxo_gestor
 title Fluxo do gestor
-
-' Jira: https://luizacursino.atlassian.net/browse/SCRUM-558
-' Fonte: Entrega Astro/Diagramas/Fluxo Gestor - Diagrama de atividades.jpg
-' no arquivo entrega-astro.zip.
+' Jira: SCRUM-558. Cada opção encerra a tarefa escolhida.
 !include estilo.iuml
 left to right direction
 skinparam packageBorderColor #D9CCE8
-skinparam packageBackgroundColor #FDFBFF
-' Finais numerados evitam setas de encerramento cruzando outras áreas.
-skinparam nodesep 30
-skinparam ranksep 45
+skinparam nodesep 35
+skinparam ranksep 55
 
 partition "Acesso ao workspace" {
-  (*) --> "Landing Page" as landing_page
-  --> if "\n<back:white>Já tem cadastro?   </back>" then
-    -->[<back:white>Sim</back>] "Workspace" as workspace
+  (*) --> if "\n<back:white>Já tem workspace?   </back>" then
+    -->[<back:white>Sim</back>] "Acessar workspace" as workspace
   else
-    -->[<back:white>Não</back>] "Gera Chave de acesso" as gerar_chave
-    --> "Cria Workspace da empresa" as criar_workspace
+    -->[<back:white>Não</back>] "Validar chave de acesso" as chave
+    --> "Cadastrar empresa" as empresa
     --> workspace
   endif
 }
 
 partition "Configurações" {
-  workspace --> "Configuração do workspace" as configurar_workspace
+  workspace --> "Editar dados do workspace" as configurar
   --> (*1)
-
-  workspace --> "Configurações de NRs\nda empresa" as configurar_nrs
+  workspace --> "Configurar NRs da empresa" as nrs
   --> (*2)
-
-  workspace --> "Criação de Unidades" as criar_unidades
-  --> "Configuração da unidade" as configurar_unidade
+  workspace --> "Cadastrar e configurar unidade" as unidade
   --> (*3)
 }
 
-partition "Cadastro de colaboradores" {
-  workspace --> "Cadastrar colaboradores" as cadastrar_colaboradores
-  --> "Faz cadastro manual" as cadastro_manual
-  --> if "\n<back:white>Já existe unidade?   </back>" then
-    -->[<back:white>Sim</back>] "Cria cargos de colaboradores" as criar_cargos
-    --> "Sugere NRs para cargo criado" as sugerir_nrs
-    --> "Configura NRs do cargo" as configurar_nrs_cargo
-    --> "Cria perfis de colaboradores" as criar_perfis
-    --> "Gera chave de acesso para contas\ndos colaboradores criados" as gerar_chaves_colaboradores
-    --> (*4)
+partition "Cadastro manual" {
+  workspace --> "Iniciar cadastro manual\nde colaborador" as manual
+  --> if "\n<back:white>Unidade cadastrada?   </back>" then
+    -->[<back:white>Sim</back>] "Selecionar unidade" as selecionar
+    --> "Definir cargo e suas NRs" as cargo
   else
-    -->[<back:white>Não</back>] criar_unidades
+    -->[<back:white>Não</back>] "Cadastrar unidade para\no colaborador" as nova_unidade
+    --> cargo
   endif
-
-  ' O rótulo "Exporta planilha" é o que consta na imagem de origem.
-  cadastrar_colaboradores --> "Exporta planilha de colaboradores" as exportar_planilha
-  --> "Cria cargos e perfis de colaborador\npor meio do excel" as criar_perfis_excel
-  --> "Configuração posterior de NRs\npor cargo" as configurar_nrs_excel
-  --> gerar_chaves_colaboradores
+  cargo --> "Preencher dados do colaborador" as dados
+  --> "Concluir pré-cadastro e\nenviar chave de primeiro acesso" as concluir_manual
+  --> (*4)
 }
 
+partition "Cadastro por planilha" {
+  workspace --> "Preparar planilha\nde colaboradores" as planilha
+  --> "Importar dados da planilha" as importar
+  --> "Configurar NRs por cargo" as configurar_nrs
+  --> "Concluir pré-cadastros e\nenviar chaves de primeiro acesso" as concluir_planilha
+  --> (*5)
+}
 @enduml

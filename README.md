@@ -2,7 +2,7 @@
 
 Diagramas PlantUML do Astro, na tarefa [SCRUM-558](https://luizacursino.atlassian.net/browse/SCRUM-558).
 
-O repositório mantém somente os três diagramas do ZIP: casos de uso, fluxo do colaborador e fluxo do gestor. O caso de uso mantém a versão simplificada e os papéis ajustados. Os dois fluxos recuperam as etapas e conexões das imagens originais do ZIP, com apresentação padronizada em PlantUML.
+O repositório mantém somente os três diagramas do ZIP: casos de uso, fluxo do colaborador e fluxo do gestor. O caso de uso mantém a versão simplificada e os papéis ajustados. Os dois fluxos usam as jornadas do ZIP como referência, revisadas para mostrar ações distintas, decisões e o encerramento de cada escolha.
 
 O [relatório de revisão](docs/revisao-contexto.md) registra separadamente a análise dos 21 repositórios da Astro-Inter e as diferenças entre a documentação original e o código consultado.
 
@@ -66,6 +66,8 @@ O comando usa Java e PlantUML com Smetana, sem instalação separada de Graphviz
 
 ## Referência dos fluxos
 
-Os fluxos do colaborador e do gestor seguem as imagens de atividades do arquivo entrega-astro.zip. A parte de certificados foi atualizada conforme o escopo atual: o sistema não armazena certificados, e a consulta de NRs apresenta conformidades e validades. A participação nos treinamentos é consultada nos eventos. As demais etapas, ramificações e integrações dessas imagens foram recuperadas; os ajustes visuais abrangem cores, organização por área, espaçamento e destaque dos rótulos. Os losangos são usados apenas para perguntas de **sim** ou **não**, sem anotações de rodapé.
+Os fluxos mostram as ações do usuário e seus resultados. Consultar uma informação não exige etapas duplicadas de abrir tela e carregar a mesma informação pela API. Cada opção termina a tarefa escolhida; o ponto final não significa sair da conta. Os caminhos de sim e não também têm continuação ou encerramento explícito.
 
-O [relatório de revisão](docs/revisao-contexto.md) continua disponível para consultar as diferenças em relação ao código do projeto.
+O sistema não armazena certificados. A consulta de NRs mostra conformidades e validades, e a participação nos treinamentos aparece nos eventos. As opções do gestor separam configurações, cadastro manual e cadastro por planilha. Criar uma unidade durante o cadastro manual permite continuar o cadastro do colaborador.
+
+O [relatório de revisão](docs/revisao-contexto.md) registra a análise técnica anterior. Os desenhos atuais priorizam uma visão funcional, sem duplicar chamadas de API, persistência ou navegação.
