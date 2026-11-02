@@ -41,6 +41,6 @@ gestor -- indicadores
 responsavel -- workspace
 admin -- catalogo
 
-criar .> validar_chave : <<include>>
-ativar .> acesso : <<extend>>
+criar .> validar_chave : <back:white> «include» </back>
+ativar .> acesso : <back:white> «extend» </back>
 @enduml
