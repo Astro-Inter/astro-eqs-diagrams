@@ -2,7 +2,7 @@
 
 Diagramas PlantUML do Astro, na tarefa [SCRUM-558](https://luizacursino.atlassian.net/browse/SCRUM-558).
 
-O repositório mantém somente os três diagramas do ZIP: casos de uso, fluxo do colaborador e fluxo do gestor. O caso de uso mantém a versão simplificada e os papéis ajustados. Os dois fluxos usam as jornadas do ZIP como referência, revisadas para mostrar ações distintas, decisões e o encerramento de cada escolha.
+O repositório reúne o diagrama de casos de uso e os fluxos do colaborador, do gestor web e do gestor mobile. Os fluxos mostram ações, decisões e o encerramento de cada escolha.
 
 O [relatório de revisão](docs/revisao-contexto.md) registra separadamente a análise dos 21 repositórios da Astro-Inter e as diferenças entre a documentação original e o código consultado.
 
@@ -14,7 +14,8 @@ No caso de uso, `<<include>>` representa a validação da chave como parte obrig
 | --- | --- | --- |
 | [Casos de uso e papéis](diagrams/rendered/casos_de_uso.svg) | Responsabilidades de Colaborador, Gestor, Gestor do Workspace e ADMIN. | [casos-de-uso.plantuml](diagrams/casos-de-uso.plantuml) |
 | [Jornada do colaborador](diagrams/rendered/fluxo_colaborador.svg) | Login, cadastro, calendário e conversas. | [fluxo-colaborador.plantuml](diagrams/fluxo-colaborador.plantuml) |
-| [Jornada do gestor](diagrams/rendered/fluxo_gestor.svg) | Acesso ao workspace, configurações, unidades e cadastro de colaboradores. | [fluxo-gestor.plantuml](diagrams/fluxo-gestor.plantuml) |
+| [Jornada do gestor web](diagrams/rendered/fluxo_gestor_web.svg) | Gestão do workspace, colaboradores, unidades, cargos, formulários e eventos. | [fluxo-gestor-web.plantuml](diagrams/fluxo-gestor-web.plantuml) |
+| [Jornada do gestor mobile](diagrams/rendered/fluxo_gestor_mobile.svg) | Validações, eventos, formulários, colaboradores e conversas no aplicativo. | [fluxo-gestor-mobile.plantuml](diagrams/fluxo-gestor-mobile.plantuml) |
 
 ## Visualização
 
@@ -43,16 +44,26 @@ Login, cadastro, calendário e conversas.
 </details>
 
 <details>
-<summary>Jornada do gestor</summary>
+<summary>Jornada do gestor web</summary>
 
-Acesso ao workspace, configurações, unidades e cadastro de colaboradores.
+Gestão do workspace, colaboradores, unidades, cargos, formulários e eventos.
 
-[Abrir imagem em tamanho completo](diagrams/rendered/fluxo_gestor.svg) · [Editar PlantUML](diagrams/fluxo-gestor.plantuml)
+[Abrir imagem em tamanho completo](diagrams/rendered/fluxo_gestor_web.svg) · [Editar PlantUML](diagrams/fluxo-gestor-web.plantuml)
 
-![Jornada do gestor](diagrams/rendered/fluxo_gestor.svg)
+![Jornada do gestor web](diagrams/rendered/fluxo_gestor_web.svg)
 
 </details>
 
+<details>
+<summary>Jornada do gestor mobile</summary>
+
+Validações, eventos, formulários, colaboradores e conversas no aplicativo.
+
+[Abrir imagem em tamanho completo](diagrams/rendered/fluxo_gestor_mobile.svg) · [Editar PlantUML](diagrams/fluxo-gestor-mobile.plantuml)
+
+![Jornada do gestor mobile](diagrams/rendered/fluxo_gestor_mobile.svg)
+
+</details>
 ## Atualizar as imagens
 
 Os `.plantuml` são as fontes; os SVGs em `diagrams/rendered/` são as imagens versionadas no README. Depois de editar uma fonte ou o estilo compartilhado `diagrams/estilo.iuml`, gere novamente as imagens a partir da raiz do repositório:
@@ -68,6 +79,6 @@ O comando usa Java e PlantUML com Smetana, sem instalação separada de Graphviz
 
 Os fluxos mostram as ações do usuário e seus resultados. Consultar uma informação não exige etapas duplicadas de abrir tela e carregar a mesma informação pela API. Cada opção termina a tarefa escolhida; o ponto final não significa sair da conta. As perguntas ficam centralizadas dentro dos losangos, com Sim e Não nas setas de saída. Os caminhos de sim e não também têm continuação ou encerramento explícito.
 
-O sistema não armazena certificados. A participação nos treinamentos aparece nos eventos. As opções do gestor separam configurações, cadastro manual e cadastro por planilha. Criar uma unidade durante o cadastro manual permite continuar o cadastro do colaborador.
+O sistema não armazena certificados. A participação nos treinamentos aparece nos eventos. Os fluxos do gestor distinguem as atividades no web e no aplicativo mobile.
 
 O [relatório de revisão](docs/revisao-contexto.md) registra a análise técnica anterior. Os desenhos atuais priorizam uma visão funcional, sem duplicar chamadas de API, persistência ou navegação.

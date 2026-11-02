@@ -1,6 +1,6 @@
-@startuml fluxo_gestor
+@startuml fluxo_gestor_web
 !include estilo.iuml
-title Fluxo do gestor no web
+title Fluxo do Gestor — Web ASTRO
 skinparam ConditionStyle InsideDiamond
 skinparam ConditionEndStyle hline
 skinparam Padding 10
