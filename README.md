@@ -1,18 +1,20 @@
 # Diagramas do Astro
 
-Diagramas PlantUML revisados com os repositórios da [Astro-Inter](https://github.com/orgs/Astro-Inter/repositories), na tarefa [SCRUM-558](https://luizacursino.atlassian.net/browse/SCRUM-558).
+Diagramas PlantUML do Astro, na tarefa [SCRUM-558](https://luizacursino.atlassian.net/browse/SCRUM-558).
 
-A revisão de **31/10/2026** substitui a transcrição literal das imagens do ZIP por uma visão baseada no código e nos contratos consultados. O escopo visual mantém somente os três diagramas do ZIP: casos de uso, fluxo do funcionário e fluxo do gestor. Acesso, criação do workspace, eventos e comunicação aparecem dentro desses fluxos, sem diagramas adicionais. Foram inventariados **21 repositórios**, com aprofundamento nos fluxos pertinentes. O [relatório de revisão](docs/revisao-contexto.md) reúne correções, evidências fixadas por commit e divergências entre memorial e implementação.
+O repositório mantém somente os três diagramas do ZIP: casos de uso, fluxo do colaborador e fluxo do gestor. O caso de uso mantém a versão simplificada e os papéis ajustados. Os dois fluxos usam as jornadas do ZIP como referência, revisadas para mostrar ações distintas, decisões e o encerramento de cada escolha.
 
-Os diagramas representam o comportamento descrito no código. Eles não confirmam deploy, ativação de workers ou testes ponta a ponta. A versão que transcreve o ZIP permanece no histórico Git, no commit `d0a4543`.
+O [relatório de revisão](docs/revisao-contexto.md) registra separadamente a análise dos 21 repositórios da Astro-Inter e as diferenças entre a documentação original e o código consultado.
+
+No caso de uso, `<<include>>` representa a validação da chave como parte obrigatória da criação do workspace. `<<extend>>` representa a ativação da conta como complemento do acesso, apenas no primeiro acesso.
 
 ## Navegação
 
 | Diagrama | O que mostra | Fonte editável |
 | --- | --- | --- |
 | [Casos de uso e papéis](diagrams/rendered/casos_de_uso.svg) | Responsabilidades de Colaborador, Gestor, Gestor do Workspace e ADMIN. | [casos-de-uso.plantuml](diagrams/casos-de-uso.plantuml) |
-| [Jornada do colaborador](diagrams/rendered/fluxo_funcionario.svg) | Eventos, perfil e NRs, alertas, conta e comunicação no mobile. | [fluxo-funcionario.plantuml](diagrams/fluxo-funcionario.plantuml) |
-| [Jornada do gestor](diagrams/rendered/fluxo_gestor.svg) | Criação da empresa, operação cotidiana e ações exclusivas do responsável. | [fluxo-gestor.plantuml](diagrams/fluxo-gestor.plantuml) |
+| [Jornada do colaborador](diagrams/rendered/fluxo_colaborador.svg) | Login, cadastro, calendário e conversas. | [fluxo-colaborador.plantuml](diagrams/fluxo-colaborador.plantuml) |
+| [Jornada do gestor](diagrams/rendered/fluxo_gestor.svg) | Acesso ao workspace, configurações, unidades e cadastro de colaboradores. | [fluxo-gestor.plantuml](diagrams/fluxo-gestor.plantuml) |
 
 ## Visualização
 
@@ -32,18 +34,18 @@ Responsabilidades de Colaborador, Gestor, Gestor do Workspace e ADMIN.
 <details>
 <summary>Jornada do colaborador</summary>
 
-Eventos, perfil e NRs, alertas, conta e comunicação no mobile.
+Login, cadastro, calendário e conversas.
 
-[Abrir imagem em tamanho completo](diagrams/rendered/fluxo_funcionario.svg) · [Editar PlantUML](diagrams/fluxo-funcionario.plantuml)
+[Abrir imagem em tamanho completo](diagrams/rendered/fluxo_colaborador.svg) · [Editar PlantUML](diagrams/fluxo-colaborador.plantuml)
 
-![Jornada do colaborador](diagrams/rendered/fluxo_funcionario.svg)
+![Jornada do colaborador](diagrams/rendered/fluxo_colaborador.svg)
 
 </details>
 
 <details>
 <summary>Jornada do gestor</summary>
 
-Criação da empresa, operação cotidiana e ações exclusivas do responsável.
+Acesso ao workspace, configurações, unidades e cadastro de colaboradores.
 
 [Abrir imagem em tamanho completo](diagrams/rendered/fluxo_gestor.svg) · [Editar PlantUML](diagrams/fluxo-gestor.plantuml)
 
@@ -62,14 +64,10 @@ java -jar plantuml.jar -charset UTF-8 -Playout=smetana -tsvg -o rendered "diagra
 
 O comando usa Java e PlantUML com Smetana, sem instalação separada de Graphviz. O estilo é local, sem includes remotos. Para manter fontes e imagens coerentes, inclua ambos no mesmo commit.
 
-## Principais correções
+## Referência dos fluxos
 
-- Separação de Colaborador, Gestor, Gestor do Workspace e ADMIN, com limites por canal.
-- Primeiro acesso por chave separado de login Firebase e criação de workspace.
-- Ações de navegação como escolhas, com retorno à Home; sem paralelismo artificial.
-- Eventos com turmas, evidências e validação pelo gestor criador.
-- Certificados tratados como possíveis evidências, sem uma relação obrigatória de consulta para alteração.
-- Chat humano e IA com persistência durante a interação; sair da tela não dispara o salvamento.
-- Integrações pertinentes descritas nos próprios fluxos, com seus limites documentados.
+Os fluxos mostram as ações do usuário e seus resultados. Consultar uma informação não exige etapas duplicadas de abrir tela e carregar a mesma informação pela API. Cada opção termina a tarefa escolhida; o ponto final não significa sair da conta. As perguntas ficam centralizadas dentro dos losangos, com Sim e Não nas setas de saída. Os caminhos de sim e não também têm continuação ou encerramento explícito.
 
-Consulte as [divergências que exigem decisão do projeto](docs/revisao-contexto.md#divergências-que-exigem-decisão-do-projeto) antes de usar estes diagramas como especificação de novas regras de negócio.
+O sistema não armazena certificados. A participação nos treinamentos aparece nos eventos. As opções do gestor separam configurações, cadastro manual e cadastro por planilha. Criar uma unidade durante o cadastro manual permite continuar o cadastro do colaborador.
+
+O [relatório de revisão](docs/revisao-contexto.md) registra a análise técnica anterior. Os desenhos atuais priorizam uma visão funcional, sem duplicar chamadas de API, persistência ou navegação.

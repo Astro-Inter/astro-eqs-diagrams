@@ -1,56 +1,44 @@
 @startuml fluxo_gestor
 !include estilo.iuml
-title Astro — jornada de gestão
+title Fluxo do gestor no web
+skinparam ConditionStyle InsideDiamond
+skinparam ConditionEndStyle hline
+skinparam Padding 10
+
 start
-if (Criar workspace no web?) then (sim)
-  :Solicitar e validar chave de workspace\nenviada pelo worker de e-mail;
-  :Preencher empresa, responsável,\nendereços e planilha inicial;
-  :API valida dados, cria identidade Firebase\ne persiste workspace, unidades, cargos e pessoas;
-  :Responsável ativo como GESTOR_WORKSPACE;\ncolaboradores pré-cadastrados recebem chave;
+:Abrir Astro;
+if (Já tem workspace?) then (Sim)
+else (Não)
+  :Validar chave de acesso;
+  :Cadastrar empresa;
 endif
-:Autenticar no Firebase como gestor\ne confirmar papel / escopo na API;
-repeat
-  :Abrir Home e escolher ação\ncompatível com perfil e canal;
-  switch (Área)
-  case (Pessoas e conformidade)
-    :Consultar pessoas, cargos, unidades\ne conformidades autorizadas;
-    if (Pré-cadastrar colaborador?) then (sim)
-      :Selecionar cargo / unidade ativos;\nvalidar CPF, e-mail e modalidade;
-      :POST /collaborators cria pré-cadastro\ne enfileira e-mail de primeiro acesso;
-    else (outras ações)
-      :Gerenciar cargos / NRs; registrar\nou importar validades e conformidades;
-    endif
-  case (Operação)
-    if (Ação de eventos?) then (sim)
-      :Gerenciar eventos, turmas e participantes;\nvalidar / atribuir somente como criador;
-      if (Modo COLABORADOR?) then (sim)
-        :Analisar evidências da conclusão PENDENTE;\naprovar ou rejeitar com justificativa;
-      else (modo GESTOR)
-        :Registrar conclusão do participante;
-      endif
-      :Conclusão CONCLUIDO com NR pode gerar\nconformidade via trigger instalada;
-    else (formulários)
-      :Criar / analisar formulários no web\nou responder recebidos no mobile\ncomo gestor destinatário;
-    endif
-  case (Consulta e comunicação)
-    :Consultar dashboards no web;\nalertas, Astrinho e chat no canal disponível;
-  case (Workspace)
-    if (Perfil GESTOR_WORKSPACE?) then (sim)
-      :Editar empresa / criar ou editar unidades;\nsincronizar planilha de colaboradores;\ngerenciar gestores / transferir responsabilidade;
-    else (GESTOR)
-      :Bloquear ações exclusivas;\nmanter gestão operacional permitida;
-    endif
-  endswitch
-  :Retornar à Home / navegação;
-repeat while (Continuar?) is (sim) not (não)
-:Encerrar sessão;
-stop
-legend bottom
-  Gestor mantém capacidades pessoais de Colaborador na mesma conta.
-  Planilha do workspace é exclusiva do responsável; importação de conformidades não.
-  Ações agrupadas são opções; não representam sequência obrigatória.
-  Pagamentos demonstrativos não integram este fluxo confirmado.
-  Cadastro inválido exige correção; falha relacional solicita compensação Firebase.
-  Chave de workspace e chave de ativação de colaborador são diferentes.
-endlegend
+:Acessar workspace;
+
+split
+  :Editar dados do workspace;
+  stop
+split again
+  :Configurar NRs da empresa;
+  stop
+split again
+  :Cadastrar e configurar unidade;
+  stop
+split again
+  :Iniciar cadastro manual\nde colaborador;
+  if (Unidade cadastrada?) then (Sim)
+    :Selecionar unidade;
+  else (Não)
+    :Cadastrar unidade para\no colaborador;
+  endif
+  :Definir cargo e suas NRs;
+  :Preencher dados do colaborador;
+  :Concluir pré-cadastro e\nenviar chave de primeiro acesso;
+  stop
+split again
+  :Preparar planilha\nde colaboradores;
+  :Importar dados da planilha;
+  :Configurar NRs por cargo;
+  :Concluir pré-cadastros e\nenviar chaves de primeiro acesso;
+  stop
+end split
 @enduml

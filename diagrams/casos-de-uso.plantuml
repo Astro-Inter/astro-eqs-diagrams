@@ -1,84 +1,49 @@
 @startuml casos_de_uso
 !include estilo.iuml
-title Astro — papéis e casos de uso
+title Astro — Casos de uso
 left to right direction
 skinparam nodesep 20
-skinparam ranksep 55
+skinparam ranksep 45
 skinparam usecaseBackgroundColor #F5F0FC
 skinparam usecaseBorderColor #7952A5
 skinparam actorBorderColor #645679
 
-actor "Visitante" as visitante
 actor "Colaborador" as colaborador
 actor "Gestor" as gestor
-actor "Gestor do\nWorkspace" as responsavel
+actor "Responsável pelo\nworkspace" as responsavel
 actor "Administrador\nAstro" as admin
-colaborador <|-- gestor
-gestor <|-- responsavel
+colaborador -left-|> gestor
+gestor -left-|> responsavel
 
 rectangle "Astro" {
-  package "Acesso e uso pessoal" {
-    usecase "Criar workspace\nno web" as criar_workspace
-    usecase "Ativar conta pré-cadastrada\nno mobile" as ativar
-    usecase "Entrar / recuperar senha" as acesso
-    usecase "Consultar perfil, NRs\ne validades próprias" as perfil
-    usecase "Consultar eventos atribuídos\ne enviar conclusão / evidências" as participar
-    usecase "Consultar alertas" as alertas
-    usecase "Conversar com gestores" as chat
-    usecase "Conversar com o Astrinho\ne retomar sessões próprias" as ia
-  }
-  package "Gestão operacional" {
-    usecase "Consultar e pré-cadastrar\ncolaboradores" as pessoas
-    usecase "Gerenciar cargos e\nsuas NRs" as cargos
-    usecase "Consultar unidades e\nassociar NRs contextuais" as unidades
-    usecase "Registrar / importar\nconformidades e validades" as conformidades
-    usecase "Criar e acompanhar eventos,\nturmas e participantes" as eventos
-    usecase "Atribuir ou validar conclusão\ndos eventos que criou" as validar
-    usecase "Criar e analisar formulários" as formularios
-    usecase "Responder formulários\nrecebidos como destinatário" as responder
-    usecase "Consultar dashboards\ndo workspace" as bi
-    usecase "Conversar com colaboradores\ne outros gestores" as chat_gestao
-  }
-  package "Responsabilidade do workspace" {
-    usecase "Editar empresa e\ncriar / editar unidades" as empresa
-    usecase "Sincronizar colaboradores\npor planilha do workspace" as importar
-    usecase "Promover / administrar gestores" as gestores
-    usecase "Transferir responsabilidade\na outro gestor ativo" as transferir
-  }
-  package "Catálogo global" {
-    usecase "Revisar e aprovar NRs\npendentes / editar catálogo" as catalogo
-  }
+  usecase "Criar workspace" as criar
+  usecase "Validar chave\ndo workspace" as validar_chave
+  usecase "Acessar conta" as acesso
+  usecase "Ativar conta\n(primeiro acesso)" as ativar
+  usecase "Consultar perfil,\nNRs e alertas" as perfil
+  usecase "Participar de eventos" as participar
+  usecase "Usar chat e ChatBot" as conversar
+  usecase "Gerenciar equipe\ne conformidades" as equipe
+  usecase "Gerenciar eventos\ne formulários" as operacao
+  usecase "Consultar indicadores" as indicadores
+  usecase "Administrar workspace" as workspace
+  usecase "Gerenciar catálogo de NRs" as catalogo
+  usecase "Revisar e aprovar NRs\ngeradas por IA" as aprovar_nrs
 }
-visitante -- criar_workspace
-visitante -- ativar
-visitante -- acesso
+responsavel -- criar
+colaborador -- acesso
+colaborador -- ativar
 colaborador -- perfil
 colaborador -- participar
-colaborador -- alertas
-colaborador -- chat
-colaborador -- ia
-gestor -- pessoas
-gestor -- cargos
-gestor -- unidades
-gestor -- conformidades
-gestor -- eventos
-gestor -- validar
-gestor -- formularios
-gestor -- responder
-gestor -- bi
-gestor -- chat_gestao
-responsavel -- empresa
-responsavel -- importar
-responsavel -- gestores
-responsavel -- transferir
+colaborador -- conversar
+gestor -- equipe
+gestor -- operacao
+gestor -- indicadores
+responsavel -- workspace
 admin -- catalogo
-admin -- acesso
+admin -- aprovar_nrs
 
-legend bottom
-  Generalização = capacidades pessoais compartilhadas, sem conta adicional.
-  Os canais e as permissões do servidor continuam distintos.
-  Colaborador: mobile. Gestores: web + mobile. ADMIN: catálogo administrativo.
-  Certificados podem ser evidências; não há módulo autônomo confirmado.
-  Visão de capacidades do código, não comprovação de deploy ou QA completo.
-endlegend
+' Espaços inseparáveis compensam o deslocamento dos rótulos no Smetana.
+criar .> validar_chave : <back:white>       «include» </back>
+ativar .> acesso : <back:white>       «extend» </back>
 @enduml
