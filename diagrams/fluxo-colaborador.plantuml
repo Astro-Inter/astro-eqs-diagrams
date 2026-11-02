@@ -44,8 +44,8 @@ partition "ChatBot" {
   --> (*5)
 }
 
-partition "Chat com gestores e colaboradores" {
-  home --> "Selecionar gestor ou colaborador\ne consultar histórico da conversa" as contato
+partition "Chat com colaboradores" {
+  home --> "Selecionar colaborador e consultar\nhistórico da conversa" as contato
   --> if "\n\n<back:white>Enviar mensagem?   </back>" then
     -->[<back:white>Sim</back>] "Enviar mensagem ao contato" as mensagem
     --> (*6)
