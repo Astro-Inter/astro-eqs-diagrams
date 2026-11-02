@@ -38,8 +38,8 @@ partition "NRs" {
   --> (*4)
 }
 
-partition "Astrinho" {
-  home --> "Enviar pergunta ao Astrinho" as pergunta
+partition "ChatBot" {
+  home --> "Enviar pergunta ao ChatBot" as pergunta
   --> "Receber resposta" as resposta
   --> (*5)
 }

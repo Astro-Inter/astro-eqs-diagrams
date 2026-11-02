@@ -22,7 +22,7 @@ rectangle "Astro" {
   usecase "Ativar conta\n(primeiro acesso)" as ativar
   usecase "Consultar perfil,\nNRs e alertas" as perfil
   usecase "Participar de eventos" as participar
-  usecase "Usar chat e Astrinho" as conversar
+  usecase "Usar chat e ChatBot" as conversar
   usecase "Gerenciar equipe\ne conformidades" as equipe
   usecase "Gerenciar eventos\ne formulários" as operacao
   usecase "Consultar indicadores" as indicadores
